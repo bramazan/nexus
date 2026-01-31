@@ -40,6 +40,7 @@ namespace Nexus.Infrastructure.Persistence
         public DbSet<Release> Releases => Set<Release>();
         public DbSet<Incident> Incidents => Set<Incident>();
         public DbSet<UserAvailability> UserAvailabilities => Set<UserAvailability>();
+        public DbSet<MetricThreshold> MetricThresholds => Set<MetricThreshold>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

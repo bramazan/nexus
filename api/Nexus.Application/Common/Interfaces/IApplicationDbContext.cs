@@ -38,6 +38,7 @@ namespace Nexus.Application.Common.Interfaces
         DbSet<Release> Releases { get; }
         DbSet<Incident> Incidents { get; }
         DbSet<UserAvailability> UserAvailabilities { get; }
+        DbSet<MetricThreshold> MetricThresholds { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

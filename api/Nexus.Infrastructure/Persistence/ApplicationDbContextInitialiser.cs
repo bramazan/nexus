@@ -49,50 +49,16 @@ namespace Nexus.Infrastructure.Persistence
 
         public async Task TrySeedAsync()
         {
-            // Default Workspace
-            if (!await _context.Workspaces.AnyAsync())
+            // Seed logic has been moved to nexus/docs/tasks/seed.sql
+            // This ensures data management is handled separately from code deployment.
+            
+            // Only keeping critical system user if absolutely necessary, but relying on SQL script is preferred now.
+            if (!await _context.Users.AnyAsync())
             {
-                var workspace = new Workspace
-                {
-                    Name = "Nexus Engineering"
-                };
-                
-                _context.Workspaces.Add(workspace);
-                await _context.SaveChangesAsync();
-
-                // Default User
-                var user = new User
-                {
-                    FullName = "System Admin",
-                    Email = "admin@nexus.com"
-                };
-                
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-
-                // Integrations
-                // Jira Integration
-                _context.Integrations.Add(new Integration
-                {
-                    WorkspaceId = workspace.Id,
-                    Type = "jira",
-                    Name = "Main Jira Instance",
-                    Config = "{ \"baseUrl\": \"https://your-domain.atlassian.net\", \"email\": \"admin@nexus.com\", \"apiToken\": \"YOUR_API_TOKEN\" }"
-                });
-
-                // GitLab Integration
-                _context.Integrations.Add(new Integration
-                {
-                    WorkspaceId = workspace.Id,
-                    Type = "gitlab",
-                    Name = "Corporate GitLab",
-                    Config = "{ \"baseUrl\": \"https://gitlab.com\", \"accessToken\": \"YOUR_ACCESS_TOKEN\", \"groupId\": \"12345\" }"
-                });
-
-                await _context.SaveChangesAsync();
-                
-                _logger.LogInformation("Default data seeded: Workspace, User, and Integrations (Jira, GitLab).");
+                _logger.LogInformation("Database is empty. Please run 'nexus/docs/tasks/seed.sql' to populate initial data.");
             }
+            
+            await Task.CompletedTask;
         }
     }
 }
