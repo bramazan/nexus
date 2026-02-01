@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Nexus.Application.Common.Interfaces;
 using Nexus.Domain.Entities;
+using Nexus.Infrastructure.Persistence.Extensions;
 using System.Reflection;
 
 namespace Nexus.Infrastructure.Persistence
@@ -45,6 +46,7 @@ namespace Nexus.Infrastructure.Persistence
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            builder.ApplySnakeCaseNamingConvention();
 
             base.OnModelCreating(builder);
         }

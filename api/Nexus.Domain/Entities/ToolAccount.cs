@@ -12,6 +12,11 @@ namespace Nexus.Domain.Entities
         
         public string? ExternalId { get; set; }
         public required string Username { get; set; }
+        
+        public string? ExternalEmail { get; set; }
+        public string? DisplayName { get; set; }
+        public string? ExternalMetadata { get; set; }
+        
         public bool IsActive { get; set; }
     }
 }

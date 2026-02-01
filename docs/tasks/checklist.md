@@ -1,11 +1,11 @@
 Faz 1: Altyapı ve Bağlantıların Kurulması (Entegrasyon Katmanı)
 Sistemin dış dünya ile konuşabilmesi için ilk doldurulması gereken tablolardır.
-1. Workspace (Çalışma Alanı) Tanımı Her şeyin çatısıdır.
+- [x] 1. Workspace (Çalışma Alanı) Tanımı Her şeyin çatısıdır.
 • Tablo: workspaces
 • Girilmesi Gereken Veri:
     ◦ name: Şirket veya Organizasyon adı (Örn: "Acme Corp Engineering").
     ◦ Not: Tüm diğer veriler bu ID'ye bağlanacaktır.
-2. Entegrasyonların Tanımlanması (Integrations) GitLab, Jira, Instana gibi araçların tanımlandığı aşamadır.
+- [x] 2. Entegrasyonların Tanımlanması (Integrations) GitLab, Jira, Instana gibi araçların tanımlandığı aşamadır.
 • Tablo: integrations
 • Girilmesi Gereken Veri:
     ◦ workspace_id: Adım 1'de oluşturulan ID.
@@ -16,62 +16,63 @@ Sistemin dış dünya ile konuşabilmesi için ilk doldurulması gereken tablola
 • Sonuç: Bu adım tamamlandığında sistem raw_events tablosuna ham veri çekmeye başlayabilir.
 Faz 2: Organizasyon ve Kimlik Eşleştirme (İnsan Katmanı)
 Veriyi çektikten sonra "Bu kodu kim yazdı?" veya "Bu görevi kim yapıyor?" sorularını yanıtlamak için "kimlik haritalaması" yapmanız gerekir.
-3. Kullanıcıların Oluşturulması (Users) Şirketteki gerçek kişilerin tanımlarıdır.
+- [x] 3. Kullanıcıların Oluşturulması (Users) Şirketteki gerçek kişilerin tanımlarıdır.
 • Tablo: users
 • Girilmesi Gereken Veri:
     ◦ full_name: Gerçek İsim Soyisim (Örn: "Ahmet Yılmaz").
     ◦ email: Şirket e-posta adresi.
-4. Takım Hiyerarşisinin Kurulması (Teams) Mühendislik organizasyon şemasıdır.
+- [x] 4. Takım Hiyerarşisinin Kurulması (Teams) Mühendislik organizasyon şemasıdır.
 • Tablo: teams
 • Girilmesi Gereken Veri:
     ◦ name: Takım adı (Örn: "Backend", "Frontend", "Platform").
     ◦ parent_team_id: Varsa üst takım (Örn: "Backend" takımı "Product Engineering"e bağlı olabilir). Bu, yukarıya doğru raporlama (roll-up) yapmanızı sağlar.
-5. Takım Üyeliği (Team Members) Kişilerin takımlara atanması.
+- [x] 5. Takım Üyeliği (Team Members) Kişilerin takımlara atanması.
 • Tablo: team_members
 • Girilmesi Gereken Veri:
     ◦ user_id ve team_id eşleşmesi.
     ◦ role: Rolü (Örn: "Lead", "Developer", "Product Owner").
     ◦ Önemli: Bir kişi birden fazla takımda olabilir veya tarihçeli olarak takım değiştirmiş olabilir.
-6. Araç Hesaplarının Eşleştirilmesi (Tool Accounts) - KRİTİK ADIM Sistemin çalışması için en önemli manuel veya yarı-otomatik adımdır. Ahmet Yılmaz'ın GitHub'daki "ayilmaz88" olduğunu sisteme tanıtmanız gerekir.
+- [x] 6. Araç Hesaplarının Eşleştirilmesi (Tool Accounts) - KRİTİK ADIM Sistemin çalışması için en önemli manuel veya yarı-otomatik adımdır. Ahmet Yılmaz'ın GitHub'daki "ayilmaz88" olduğunu sisteme tanıtmanız gerekir.
 • Tablo: tool_accounts
 • Girilmesi Gereken Veri:
     ◦ user_id: Gerçek kişi ID'si.
     ◦ integration_id: Hangi entegrasyon olduğu (Örn: GitLab entegrasyon ID'si).
     ◦ external_id / username: Dış sistemdeki kullanıcı adı veya ID'si (Örn: GitHub username ayilmaz88 veya Jira accountId 557058:xyz).
+    ◦ external_email / metadata: Commit eşleştirmesi için email ve ek veriler (Avatar, Profile URL).
 • Neden Gerekli? Bu eşleştirme olmazsa DORA metrikleri hesaplanamaz, çünkü commit'lerin kime ait olduğu bilinemez.
 Faz 3: Proje ve Servis Mimarisi (Varlık Katmanı)
 Kodun ve işin nerede yaşadığını tanımlarsınız.
-7. Depoların (Repositories) Tanımlanması Genellikle entegrasyon sonrası otomatik çekilir (raw_events üzerinden), ancak hangilerinin takip edileceği seçilmelidir.
+- [x] 7. Depoların (Repositories) Tanımlanması Genellikle entegrasyon sonrası otomatik çekilir (raw_events üzerinden), ancak hangilerinin takip edileceği seçilmelidir.
 • Tablo: repositories
 • Otomatik Dolar: name, url, default_branch GitLab/GitHub'dan gelir.
-8. Servis Kataloğu (Service Catalog) DORA metriklerinin (Deployment Frequency, MTTR) hesaplandığı temel birimdir. Repo ile Servis her zaman 1:1 olmayabilir (Monorepo durumu).
+- [x] 8. Servis Kataloğu (Service Catalog) DORA metriklerinin (Deployment Frequency, MTTR) hesaplandığı temel birimdir. Repo ile Servis her zaman 1:1 olmayabilir (Monorepo durumu).
 • Tablo: services
 • Girilmesi Gereken Veri:
     ◦ name: Servis adı (Örn: "Payment API").
     ◦ owner_team_id: Bu servisten sorumlu takım.
     ◦ tier: Önem derecesi (Tier-1, Tier-2).
 • Bağlantı Tablosu: service_repositories. Hangi servisin hangi repo(lar)da yaşadığını ve path filtrelerini (monorepo için packages/payment/** gibi) burada tanımlarsınız.
-9. Jira Proje/Board Tanımları
+- [x] 9. Jira Proje/Board Tanımları
 • Tablo: issues ve ilgili bağlantılar.
 • Entegrasyon ayarlarında hangi Jira projelerinin (Key: PROJ, ENG) çekileceğini belirtirsiniz. Sistem bu projelerdeki Issue, Sprint ve Epic'leri otomatik olarak issues ve sprints tablolarına doldurur.
 Faz 4: Zeka ve Kural Motoru (Konfigürasyon Katmanı)
 Sistemin "İyi" veya "Kötü"yü ayırt etmesi için gereken kurallardır.
-10. Metrik Eşik Değerleri (Metric Thresholds) Sisteme hedeflerinizi öğretirsiniz.
+- [x] 10. Metrik Eşik Değerleri (Metric Thresholds) Sisteme hedeflerinizi öğretirsiniz.
 • Tablo: metric_thresholds (Data modelinde belirtilen kural motoru).
 • Girilmesi Gereken Veri:
     ◦ metric_name: Örn. "cycle_time".
     ◦ segment: Örn. "enterprise" veya "startup".
     ◦ min_value / max_value: Hangi aralığın "Elite", "High" veya "Low" olduğunu belirten sayısal değerler (Örn: Cycle Time < 24 saat = Elite).
-11. Kullanıcı Uygunluğu (User Availability) Metriklerin sapmaması için izin/tatil günleri girilmelidir.
+- [ ] 11. Kullanıcı Uygunluğu (User Availability) Metriklerin sapmaması için izin/tatil günleri girilmelidir.
 • Tablo: user_availability
 • Girilmesi Gereken Veri: Kullanıcı ID'si, başlangıç/bitiş tarihi ve tipi (Yıllık İzin, Raporlu vb.). Bu veriler, Cycle Time hesaplanırken "çalışılmayan günleri" düşmek için kullanılır.
 Özet: Çalıştırma Sıralaması
-1. Workspaces & Integrations: GitLab/Jira API Key'lerini integrations tablosuna gir.
-2. Raw Data Sync (Otomatik): Sistem raw_events tablosunu doldurmaya başlar.
-3. Users & Teams: İK yapısını teams ve users tablolarına işle.
-4. Tool Accounts: tool_accounts tablosunda "Jira User X = Nexus User Y" eşleşmesini yap.
-5. Services: Hangi repoların hangi servise (services) ait olduğunu ve sahiplerini tanımla.
-6. Thresholds: metric_thresholds tablosuna başarı kriterlerini (KPI) gir.
+- [x] 1. Workspaces & Integrations: GitLab/Jira API Key'lerini integrations tablosuna gir.
+- [x] 2. Raw Data Sync (Otomatik): Sistem raw_events tablosunu doldurmaya başlar.
+- [x] 3. Users & Teams: İK yapısını teams ve users tablolarına işle.
+- [x] 4. Tool Accounts: tool_accounts tablosunda "Jira User X = Nexus User Y" eşleşmesini yap.
+- [x] 5. Services: Hangi repoların hangi servise (services) ait olduğunu ve sahiplerini tanımla.
+- [x] 6. Thresholds: metric_thresholds tablosuna başarı kriterlerini (KPI) gir.
 Bu adımlardan sonra sistem pull_requests, deployments ve issues tablolarını raw_events üzerinden işleyerek (ETL) dolduracak ve dashboardlarınız canlanacaktır.
 DORA metriklerini veri modelinde nasıl hesaplarız?
 Yapay zeka kaynaklı teknik borçlar nasıl takip edilmeli?

@@ -41,6 +41,9 @@ Table tool_accounts {
     integration_id uuid [ref: > integrations.id]
     external_id varchar
     username varchar
+    external_email varchar
+    display_name varchar
+    external_metadata json
     is_active boolean
 }
 
