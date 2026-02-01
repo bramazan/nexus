@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Nexus.Application.Common.Interfaces;
 using Nexus.Domain.Entities;
-using Nexus.Infrastructure.Connectors.Jira.Models;
+using Nexus.Application.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

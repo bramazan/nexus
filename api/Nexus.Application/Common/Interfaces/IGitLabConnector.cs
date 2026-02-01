@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Nexus.Application.Common.Models;
 
 namespace Nexus.Application.Common.Interfaces
 {
@@ -7,21 +8,21 @@ namespace Nexus.Application.Common.Interfaces
         Task<bool> ValidateConnectionAsync(string baseUrl, string accessToken);
         
         // Core Resources
-        Task<IList<GitLabApiClient.Models.Projects.Responses.Project>> GetProjectsAsync(Guid integrationId, string? groupId = null);
-        Task<IList<GitLabApiClient.Models.MergeRequests.Responses.MergeRequest>> GetMergeRequestsAsync(Guid integrationId, int projectId, DateTime? since = null);
-        Task<IList<GitLabApiClient.Models.Commits.Responses.Commit>> GetCommitsAsync(Guid integrationId, int projectId, DateTime? since = null);
-        Task<IList<GitLabApiClient.Models.Pipelines.Responses.Pipeline>> GetPipelinesAsync(Guid integrationId, int projectId);
-        Task<IList<GitLabApiClient.Models.Issues.Responses.Issue>> GetIssuesAsync(Guid integrationId, int projectId, DateTime? since = null);
+        Task<IList<GitLabProject>> GetProjectsAsync(Guid integrationId, string? groupId = null);
+        Task<IList<GitLabMergeRequest>> GetMergeRequestsAsync(Guid integrationId, int projectId, DateTime? since = null);
+        Task<IList<GitLabCommit>> GetCommitsAsync(Guid integrationId, int projectId, DateTime? since = null);
+        Task<IList<GitLabPipeline>> GetPipelinesAsync(Guid integrationId, int projectId);
+        Task<IList<GitLabIssue>> GetIssuesAsync(Guid integrationId, int projectId, DateTime? since = null);
         
         // Extended Resources for DORA & Team Structure
-        Task<IList<GitLabApiClient.Models.Projects.Responses.ProjectDeployment>> GetDeploymentsAsync(Guid integrationId, int projectId);
-        Task<IList<GitLabApiClient.Models.Releases.Responses.Release>> GetReleasesAsync(Guid integrationId, int projectId);
-        Task<IList<GitLabApiClient.Models.Users.Responses.User>> GetMembersAsync(Guid integrationId, int projectId);
-        Task<IList<GitLabApiClient.Models.Branches.Responses.Branch>> GetBranchesAsync(Guid integrationId, int projectId);
+        Task<IList<GitLabDeployment>> GetDeploymentsAsync(Guid integrationId, int projectId);
+        Task<IList<GitLabRelease>> GetReleasesAsync(Guid integrationId, int projectId);
+        Task<IList<GitLabMember>> GetMembersAsync(Guid integrationId, int projectId);
+        Task<IList<GitLabBranch>> GetBranchesAsync(Guid integrationId, int projectId);
         
         // Deep Dive
-        Task<IList<GitLabApiClient.Models.Pipelines.Responses.Job>> GetJobsAsync(Guid integrationId, int projectId, int pipelineId);
-        Task<IList<GitLabApiClient.Models.Commits.Responses.Commit>> GetMergeRequestCommitsAsync(Guid integrationId, int projectId, int mergeRequestId);
+        Task<IList<GitLabJob>> GetJobsAsync(Guid integrationId, int projectId, int pipelineId);
+        Task<IList<GitLabCommit>> GetMergeRequestCommitsAsync(Guid integrationId, int projectId, int mergeRequestId);
         
         // Legacy Sync
         Task SyncProjectsAsync(Guid integrationId);

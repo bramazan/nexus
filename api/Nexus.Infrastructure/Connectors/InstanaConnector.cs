@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Nexus.Application.Common.Interfaces;
-using Nexus.Infrastructure.Connectors.Instana.Models;
+using Nexus.Application.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

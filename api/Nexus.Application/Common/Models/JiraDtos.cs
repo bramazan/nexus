@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Nexus.Infrastructure.Connectors.Jira.Models
+namespace Nexus.Application.Common.Models
 {
     public class JiraProject
     {
@@ -184,9 +184,9 @@ namespace Nexus.Infrastructure.Connectors.Jira.Models
         public string Field { get; set; } = string.Empty;
         
         [JsonPropertyName("fromString")]
-        public string FromString { get; set; }
+        public string? FromString { get; set; }
         
         [JsonPropertyName("toString")]
-        public string ToString { get; set; }
+        public string? ToStringValue { get; set; }
     }
 }

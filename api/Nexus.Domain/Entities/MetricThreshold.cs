@@ -2,7 +2,7 @@ using Nexus.Domain.Common;
 
 namespace Nexus.Domain.Entities;
 
-public class MetricThreshold : BaseAuditableEntity
+public class MetricThreshold : BaseEntity
 {
     public string MetricName { get; set; } = string.Empty;
     public string Segment { get; set; } = string.Empty; // e.g., "startup", "enterprise", or "default"

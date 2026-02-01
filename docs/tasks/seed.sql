@@ -48,7 +48,7 @@ INSERT INTO team_members (id, team_id, user_id, role, created, created_by) VALUE
 ('dfebaf3e-3e6f-4130-a0e0-d2ef8792e356', 'ec81d79e-b13a-548e-8082-3c479facae8a', 'f2cbe571-0cb8-5d82-bbbf-e704081c8dda', 'Senior Software Engineer', NOW(), 'system'),
 ('c3490232-2897-4be8-9c46-f64d6e5a67a4', 'edb15541-d186-59eb-8876-d067098d2371', '09e0ebb8-61b0-5aff-b02c-22c0c8785652', 'QA Engineer', NOW(), 'system'),
 ('400b0b5a-cdf0-434f-bff7-77e9c0a4b89c', 'edb15541-d186-59eb-8876-d067098d2371', '3fcd0f39-8866-5407-a193-bb81ceab588e', 'Software Engineer', NOW(), 'system'),
-('e269e1a2-2577-46c3-92a1-66960dff9fad', '6147830f-ad46-5a25-83db-6705d1be5bc6', '411d2cd1-8db0-5243-bf17-2de2b35fa3ce', 'Engineering Manager', NOW(), 'system'),
+
 ('312b3fef-8a92-4197-9622-45c13dcda722', '81be54c0-c2e5-5790-8978-619825aa0263', '551e9bed-471e-5f5d-bd9a-6bb5e3e29b4a', 'Senior Software Engineer', NOW(), 'system'),
 ('bf2830a2-0bef-41a0-a5e1-71890d7d85a3', '81be54c0-c2e5-5790-8978-619825aa0263', '590323a2-2dfc-579c-be0d-36791fbaed97', 'Software Engineer', NOW(), 'system'),
 ('0455ae91-a3a9-497f-91d0-de7fff758aa1', 'ec81d79e-b13a-548e-8082-3c479facae8a', '880790c3-c4d8-53c0-beab-289f96a57053', 'Software Development Team Lead', NOW(), 'system'),

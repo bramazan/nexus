@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using MediatR;
+using FluentValidation;
 using System.Reflection;
 
 namespace Nexus.Application

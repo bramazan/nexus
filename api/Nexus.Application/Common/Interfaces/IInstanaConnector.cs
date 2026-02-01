@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nexus.Infrastructure.Connectors.Instana.Models;
+using Nexus.Application.Common.Models;
 
 namespace Nexus.Application.Common.Interfaces
 {

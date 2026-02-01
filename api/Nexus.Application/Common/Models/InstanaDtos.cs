@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace Nexus.Infrastructure.Connectors.Instana.Models
+namespace Nexus.Application.Common.Models
 {
     public class InstanaApplication
     {
