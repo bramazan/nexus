@@ -309,3 +309,13 @@ Table user_availability {
   type varchar [note: 'vacation, sick, parental, sabbatical']
   reason text
 }
+
+Table metric_thresholds {
+    id uuid [pk]
+    metric_name varchar
+    segment varchar [note: 'startup, enterprise, default']
+    min_value double
+    max_value double
+    level varchar [note: 'Elite, High, Medium, Low']
+    created_at timestamp
+}
