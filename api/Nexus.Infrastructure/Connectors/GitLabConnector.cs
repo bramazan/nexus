@@ -149,7 +149,6 @@ namespace Nexus.Infrastructure.Connectors
             return await client.GetFromJsonAsync<IList<GitLabCommit>>(url) ?? new List<GitLabCommit>();
         }
 
-        // Helper to create client from DB integration
         private async Task<HttpClient> CreateHttpClientAsync(Guid integrationId)
         {
             var integration = await _context.Integrations.FindAsync(integrationId);
@@ -158,6 +157,21 @@ namespace Nexus.Infrastructure.Connectors
             var config = JsonSerializer.Deserialize<JsonElement>(integration.Config ?? "{}");
             var baseUrl = config.GetProperty("baseUrl").GetString();
             var accessToken = config.GetProperty("accessToken").GetString();
+
+            if (string.IsNullOrEmpty(baseUrl))
+            {
+                throw new InvalidOperationException("Base URL is missing in integration configuration.");
+            }
+
+            if (!baseUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+            {
+                baseUrl = $"https://{baseUrl}";
+            }
+
+            if (!baseUrl.EndsWith("/"))
+            {
+                baseUrl += "/";
+            }
 
             var client = _httpClientFactory.CreateClient();
             client.BaseAddress = new Uri(baseUrl);
@@ -198,6 +212,19 @@ namespace Nexus.Infrastructure.Connectors
             }
 
             await _context.SaveChangesAsync(System.Threading.CancellationToken.None);
+        }
+        public async Task<JsonElement> GetRawDataAsync(Guid integrationId, string endpoint)
+        {
+            var client = await CreateHttpClientAsync(integrationId);
+            var response = await client.GetAsync(endpoint);
+            
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return default;
+            }
+
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<JsonElement>();
         }
     }
 }

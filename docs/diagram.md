@@ -73,6 +73,10 @@ Table raw_events {
   occurred_at timestamp [note: 'Event time in source']
   ingested_at timestamp [note: 'When we pulled it']
   
+  status varchar [note: 'Pending, Processed, Failed']
+  processed_at timestamp
+  error_message text
+  
   indexes {
     (integration_id, entity_type, entity_id)
   }
@@ -128,9 +132,13 @@ Table commits {
   id uuid [pk]
   repository_id uuid [ref: > repositories.id]
   sha varchar
+  author_name varchar
   author_email varchar
-  message text
+  authored_date timestamp
   committed_at timestamp
+  message text
+  web_url varchar
+  user_id uuid [ref: > users.id]
   created_at timestamp
 }
 

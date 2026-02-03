@@ -22,6 +22,7 @@ namespace Nexus.Infrastructure
             services.AddScoped<IGitLabConnector, Connectors.GitLabConnector>();
             services.AddScoped<IJiraConnector, Connectors.JiraConnector>();
             services.AddScoped<IInstanaConnector, Connectors.InstanaConnector>();
+            services.AddScoped<INormalizationService, Services.NormalizationService>();
 
             return services;
         }

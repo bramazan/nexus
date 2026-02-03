@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using System.Text.Json;
 using Nexus.Application.Common.Models;
 
 namespace Nexus.Application.Common.Interfaces
@@ -26,5 +27,8 @@ namespace Nexus.Application.Common.Interfaces
         
         // Legacy Sync
         Task SyncProjectsAsync(Guid integrationId);
+
+        // Raw Data Access
+        Task<JsonElement> GetRawDataAsync(Guid integrationId, string endpoint);
     }
 }

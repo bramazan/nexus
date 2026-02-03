@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nexus.Infrastructure.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Nexus.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260202182811_UpdateCommitAndRawEventSchema")]
+    partial class UpdateCommitAndRawEventSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -190,6 +193,14 @@ namespace Nexus.Infrastructure.Migrations
                     b.Property<DateTime>("CommittedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("committed_at");
+
+                    b.Property<string>("CommitterEmail")
+                        .HasColumnType("text")
+                        .HasColumnName("committer_email");
+
+                    b.Property<string>("CommitterName")
+                        .HasColumnType("text")
+                        .HasColumnName("committer_name");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")

@@ -15,5 +15,16 @@ namespace Nexus.Domain.Entities
         
         public DateTime OccurredAt { get; set; }
         public DateTime IngestedAt { get; set; }
+        
+        public ProcessingStatus Status { get; set; } = ProcessingStatus.Pending;
+        public DateTime? ProcessedAt { get; set; }
+        public string? ErrorMessage { get; set; }
+    }
+    
+    public enum ProcessingStatus
+    {
+        Pending,
+        Processed,
+        Failed
     }
 }
