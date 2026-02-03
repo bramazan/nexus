@@ -64,4 +64,34 @@ public class SyncController : ControllerBase
             return Results.Problem(ex.Message);
         }
     }
+
+    [HttpPost("gitlab/all-commits")]
+    public async Task<IResult> SyncAllRepositoriesCommits()
+    {
+        try
+        {
+            var results = await _mediator.Send(new SyncAllRepositoriesCommitsCommand());
+            return Results.Ok(new { Message = "All repositories commits sync finished", Results = results });
+        }
+        catch (Exception ex)
+        {
+            return Results.Problem(ex.Message);
+        }
+    }
+
+    [HttpPost("gitlab/all-merge-requests")]
+    public async Task<IResult> SyncAllRepositoriesMergeRequests()
+    {
+        try
+        {
+            var results = await _mediator.Send(new SyncAllRepositoriesMergeRequestsCommand());
+            return Results.Ok(new { Message = "All repositories merge requests sync finished", Results = results });
+        }
+        catch (Exception ex)
+        {
+            return Results.Problem(ex.Message);
+        }
+    }
+
 }
+

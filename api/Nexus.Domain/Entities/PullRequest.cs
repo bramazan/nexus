@@ -19,6 +19,12 @@ namespace Nexus.Domain.Entities
         public ToolAccount? AuthorToolAccount { get; set; }
         
         public required string State { get; set; } // open, closed, merged
+        
+        public string? SourceBranch { get; set; }
+        public string? TargetBranch { get; set; }
+        public string? Description { get; set; }
+        
+        public DateTime? FirstReviewAt { get; set; }
         public DateTime? MergedAt { get; set; }
         public DateTime? ClosedAt { get; set; }
         

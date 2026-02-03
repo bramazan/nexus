@@ -27,13 +27,13 @@ namespace Nexus.Application.GitLab.Commands
         {
             string baseEndpoint = request.DataType.ToLower() switch
             {
-                "commits" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/repository/commits?per_page=100",
-                "mergerequests" or "mrs" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/merge_requests?per_page=100",
-                "pipelines" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/pipelines?per_page=100",
+                "commits" or "commit" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/repository/commits?per_page=100",
+                "mergerequests" or "mrs" or "pull_request" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/merge_requests?per_page=100",
+                "pipelines" or "deployment" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/pipelines?per_page=100",
                 "jobs" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/jobs?per_page=100",
-                "issues" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/issues?per_page=100",
-                "deployments" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/deployments?per_page=100",
-                "releases" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/releases?per_page=100",
+                "issues" or "issue" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/issues?per_page=100",
+                "deployments" or "deployment_event" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/deployments?per_page=100",
+                "releases" or "release" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/releases?per_page=100",
                 _ => throw new ArgumentException($"Unsupported DataType: {request.DataType}")
             };
 

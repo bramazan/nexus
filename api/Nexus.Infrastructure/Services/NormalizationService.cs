@@ -19,41 +19,56 @@ namespace Nexus.Infrastructure.Services
 
         public async Task NormalizePendingEventsAsync(CancellationToken cancellationToken)
         {
+            _logger.LogInformation("Starting normalization of pending events...");
+            
             var pendingEvents = await _context.RawEvents
                 .Where(e => e.Status == ProcessingStatus.Pending)
                 .OrderBy(e => e.OccurredAt)
-                .Take(50) // Batch size
+                .Take(10000) // Batch size
                 .ToListAsync(cancellationToken);
+                
+            _logger.LogInformation($"Found {pendingEvents.Count} pending events.");
 
             foreach (var rawEvent in pendingEvents)
             {
+                _logger.LogInformation($"Processing event {rawEvent.Id} - Source: {rawEvent.Source}, Type: {rawEvent.EntityType}");
                 try
                 {
-                    if (rawEvent.Source == "GitLab" && rawEvent.EntityType == "commits")
+                    if (rawEvent.Source == "GitLab")
                     {
-                        await ProcessGitLabCommitAsync(rawEvent, cancellationToken);
+                        if (rawEvent.EntityType == "commits")
+                        {
+                            await ProcessGitLabCommitAsync(rawEvent, cancellationToken);
+                        }
+                        else if (rawEvent.EntityType == "pull_request" || rawEvent.EntityType == "mergerequests" || rawEvent.EntityType == "mrs")
+                        {
+                            _logger.LogInformation("Processing as Merge Request...");
+                            await ProcessGitLabMergeRequestAsync(rawEvent, cancellationToken);
+                        }
+                        else
+                        {
+                            _logger.LogWarning($"No handler for Source: {rawEvent.Source}, EntityType: {rawEvent.EntityType}");
+                        }
                     }
                     else
                     {
-                        // Skip unknown types for now, or mark as failed? 
-                        // Let's mark as Processed but log that we didn't do anything specific, or just leave it?
-                        // Better to leave it or implement handlers. For now, just skip.
                         _logger.LogWarning($"No handler for Source: {rawEvent.Source}, EntityType: {rawEvent.EntityType}");
                     }
                     
                     // Mark as successful if processed (handler should throw if failed)
-                    // If handler logic is void, we assume success or internal catch.
                 }
                 catch (Exception ex)
                 {
+                    _logger.LogError(ex, $"Failed to process event {rawEvent.Id}");
                     rawEvent.Status = ProcessingStatus.Failed;
                     rawEvent.ErrorMessage = ex.Message;
                     rawEvent.ProcessedAt = DateTime.UtcNow;
-                    _logger.LogError(ex, $"Failed to normalize event {rawEvent.Id}");
                 }
             }
             
-            await _context.SaveChangesAsync(cancellationToken);
+            _logger.LogInformation("Saving changes...");
+            var result = await _context.SaveChangesAsync(cancellationToken);
+            _logger.LogInformation($"Saved {result} changes.");
         }
 
         private async Task ProcessGitLabCommitAsync(RawEvent rawEvent, CancellationToken cancellationToken)
@@ -68,34 +83,9 @@ namespace Nexus.Infrastructure.Services
             var authoredDate = root.GetProperty("authored_date").GetDateTime().ToUniversalTime();
             var committedDate = root.GetProperty("committed_date").GetDateTime().ToUniversalTime();
             var webUrl = root.GetProperty("web_url").GetString();
+            
+            var repositoryId = await ResolveRepositoryIdAsync(rawEvent.IntegrationId, webUrl, "/-/commit/", cancellationToken);
 
-            // Try to resolve Repository
-            // Strategy: Extract potential repo URL from web_url or external_id?
-            // User example WebUrl: https://git.odeal.com/odeal/finance/transfer/-/commit/04cb8b2e...
-            // Repo URL in DB might be: https://git.odeal.com/odeal/finance/transfer
-            
-            Guid repositoryId = Guid.Empty;
-            
-            // Simplistic URL matching
-            if (!string.IsNullOrEmpty(webUrl))
-            {
-                // Remove /-/commit/... part
-                var repoUrlPart = webUrl.Split("/-/commit/")[0];
-                var repo = await _context.Repositories
-                    .FirstOrDefaultAsync(r => r.Url == repoUrlPart && r.IntegrationId == rawEvent.IntegrationId, cancellationToken);
-                
-                if (repo != null)
-                {
-                    repositoryId = repo.Id;
-                }
-            }
-            
-            // If repository not found, we might want to create it or fail? 
-            // For now, let's fail if repository is strict requirements, else we can't save foreign key.
-            // But wait, RepositoryId is GUID in Commit entity. Is it nullable?
-            // In Commit.cs: public Guid RepositoryId { get; set; } -> NOT nullable.
-            // So we MUST find a repo.
-            
             if (repositoryId == Guid.Empty)
             {
                  throw new Exception($"Could not resolve Repository from WebUrl: {webUrl}");
@@ -124,33 +114,167 @@ namespace Nexus.Infrastructure.Services
                 // Link User
                 if (!string.IsNullOrEmpty(authorEmail))
                 {
-                    var toolAccount = await _context.ToolAccounts
-                        .Include(ta => ta.User)
-                        .FirstOrDefaultAsync(ta => 
-                            ta.IntegrationId == rawEvent.IntegrationId && 
-                            (ta.ExternalEmail == authorEmail || ta.Username == authorEmail), // Simple match
-                            cancellationToken);
-                            
-                    if (toolAccount != null)
-                    {
-                        commit.UserId = toolAccount.UserId;
-                    }
-                    else
-                    {
-                        // Fallback: Try to find User by email directly
-                        var user = await _context.Users
-                            .FirstOrDefaultAsync(u => u.Email == authorEmail, cancellationToken);
-                            
-                        if (user != null)
-                        {
-                            commit.UserId = user.Id;
-                        }
-                    }
+                    commit.UserId = await ResolveUserIdByEmailAsync(rawEvent.IntegrationId, authorEmail, cancellationToken);
                 }
                 
                 _context.Commits.Add(commit);
             }
             
+            MarkAsProcessed(rawEvent);
+        }
+
+        private async Task ProcessGitLabMergeRequestAsync(RawEvent rawEvent, CancellationToken cancellationToken)
+        {
+            using var document = JsonDocument.Parse(rawEvent.Payload);
+            var root = document.RootElement;
+
+            var iid = root.GetProperty("iid").GetInt32();
+            var externalId = root.GetProperty("id").ToString(); // Keep as string for flexibility
+            var title = root.GetProperty("title").GetString()!;
+            var description = root.TryGetProperty("description", out var descProp) ? descProp.GetString() : null;
+            var state = root.GetProperty("state").GetString()!;
+            
+            var createdAt = root.GetProperty("created_at").GetDateTime().ToUniversalTime();
+            var updatedAt = root.GetProperty("updated_at").GetDateTime().ToUniversalTime();
+            
+            DateTime? mergedAt = null;
+            if (root.TryGetProperty("merged_at", out var mergedAtProp) && mergedAtProp.ValueKind != JsonValueKind.Null)
+            {
+                mergedAt = mergedAtProp.GetDateTime().ToUniversalTime();
+            }
+
+            DateTime? closedAt = null;
+            if (root.TryGetProperty("closed_at", out var closedAtProp) && closedAtProp.ValueKind != JsonValueKind.Null)
+            {
+                closedAt = closedAtProp.GetDateTime().ToUniversalTime();
+            }
+
+            var sourceBranch = root.GetProperty("source_branch").GetString();
+            var targetBranch = root.GetProperty("target_branch").GetString();
+            var webUrl = root.GetProperty("web_url").GetString();
+
+            var repositoryId = await ResolveRepositoryIdAsync(rawEvent.IntegrationId, webUrl, "/-/merge_requests/", cancellationToken);
+            
+            if (repositoryId == Guid.Empty)
+            {
+                // Fallback trial: sometimes url structure is different or we default to finding project by other means?
+                // For now, fail if strict. But to be safe, maybe log and skip?
+                // Let's rely on ResolveRepositoryIdAsync.
+                throw new Exception($"Could not resolve Repository from WebUrl: {webUrl}");
+            }
+
+            // Check if PR exists
+            var existingPR = await _context.PullRequests
+                .FirstOrDefaultAsync(pr => pr.RepositoryId == repositoryId && pr.Number == iid, cancellationToken);
+
+            if (existingPR == null)
+            {
+                var pr = new PullRequest
+                {
+                    Id = Guid.NewGuid(),
+                    IntegrationId = rawEvent.IntegrationId,
+                    RepositoryId = repositoryId,
+                    ExternalId = externalId,
+                    Number = iid,
+                    Title = title,
+                    State = state, // TODO: Map to standardized state? For now, keep as source state.
+                    SourceBranch = sourceBranch,
+                    TargetBranch = targetBranch,
+                    Description = description,
+                    CreatedAt = createdAt,
+                    MergedAt = mergedAt,
+                    ClosedAt = closedAt,
+                    // Calculated fields default
+                    ReviewCount = 0, 
+                    SizeLines = 0,
+                    IsAiGenerated = false 
+                };
+
+                // Author resolution
+                if (root.TryGetProperty("author", out var authorProp))
+                {
+                    string? email = null;
+                    if (authorProp.TryGetProperty("email", out var emailProp) && emailProp.ValueKind != JsonValueKind.Null)
+                    {
+                        email = emailProp.GetString();
+                    }
+                    
+                    // If no email in public author object, we might try username match or skipping
+                    string? username = null;
+                    if (authorProp.TryGetProperty("username", out var usernameProp))
+                    {
+                        username = usernameProp.GetString();
+                    }
+
+                    if (!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(username))
+                    {
+                        // Try to find ToolAccount
+                        var toolAccount = await _context.ToolAccounts
+                            .FirstOrDefaultAsync(ta => 
+                                ta.IntegrationId == rawEvent.IntegrationId && 
+                                ((email != null && ta.ExternalEmail == email) || (username != null && ta.Username == username)), 
+                                cancellationToken);
+                        
+                        if (toolAccount != null)
+                        {
+                            pr.AuthorToolAccountId = toolAccount.Id;
+                        }
+                    }
+                }
+
+                _context.PullRequests.Add(pr);
+            }
+            else
+            {
+                // Update existing PR
+                // Important for updated status
+                existingPR.Title = title;
+                existingPR.Description = description;
+                existingPR.State = state;
+                existingPR.SourceBranch = sourceBranch;
+                existingPR.TargetBranch = targetBranch;
+                existingPR.MergedAt = mergedAt;
+                existingPR.ClosedAt = closedAt;
+                // Don't overwrite created_at or author if already set ideally
+            }
+
+            MarkAsProcessed(rawEvent);
+        }
+
+        // Helpers
+        private async Task<Guid> ResolveRepositoryIdAsync(Guid integrationId, string? webUrl, string splitToken, CancellationToken cancellationToken)
+        {
+            if (string.IsNullOrEmpty(webUrl)) return Guid.Empty;
+
+            var repoUrlPart = webUrl.Split(splitToken)[0];
+            
+            // Exact match try
+            var repo = await _context.Repositories
+                .FirstOrDefaultAsync(r => r.Url == repoUrlPart && r.IntegrationId == integrationId, cancellationToken);
+            
+            if (repo != null) return repo.Id;
+
+            // Loose match (case insensitive? or trim slash?)
+            return Guid.Empty;
+        }
+
+        private async Task<Guid?> ResolveUserIdByEmailAsync(Guid integrationId, string email, CancellationToken cancellationToken)
+        {
+             var toolAccount = await _context.ToolAccounts
+                .Include(ta => ta.User)
+                .FirstOrDefaultAsync(ta => 
+                    ta.IntegrationId == integrationId && 
+                    (ta.ExternalEmail == email || ta.Username == email),
+                    cancellationToken);
+                    
+            if (toolAccount != null) return toolAccount.UserId;
+
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+            return user?.Id;
+        }
+
+        private void MarkAsProcessed(RawEvent rawEvent)
+        {
             rawEvent.Status = ProcessingStatus.Processed;
             rawEvent.ProcessedAt = DateTime.UtcNow;
             rawEvent.ErrorMessage = null;
