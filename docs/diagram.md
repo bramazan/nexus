@@ -142,6 +142,35 @@ Table commits {
   created_at timestamp
 }
 
+Table pipelines {
+  id uuid [pk]
+  integration_id uuid [ref: > integrations.id]
+  repository_id uuid [ref: > repositories.id]
+  external_id int
+  iid int
+  status varchar
+  source varchar
+  ref varchar
+  sha varchar
+  web_url varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table jobs {
+  id uuid [pk]
+  pipeline_id uuid [ref: > pipelines.id]
+  name varchar
+  stage varchar
+  status varchar
+  duration double
+  created_at timestamp
+  started_at timestamp
+  finished_at timestamp
+  external_id varchar
+  web_url varchar
+}
+
 Table code_changes {
   id uuid [pk]
   commit_id uuid [ref: > commits.id]
@@ -179,6 +208,8 @@ Table pull_request_reviews {
   id uuid [pk]
   pull_request_id uuid [ref: > pull_requests.id]
   author_tool_account_id uuid [ref: > tool_accounts.id]
+  external_id varchar
+  body text
   state varchar [note: 'approved, changes_requested, commented, dismissed']
   submitted_at timestamp
   
@@ -297,10 +328,23 @@ Table releases {
   description text
 }
 
+Table service_metrics {
+  id uuid [pk]
+  service_id uuid [ref: > services.id]
+  time_stamp timestamp
+  latency double
+  error_rate double
+  throughput double
+  cpu_usage double
+  memory_usage double
+  metric_type varchar
+}
+
 Table incidents {
   id uuid [pk]
   service_id uuid [ref: > services.id]
   title varchar
+  external_id varchar
   severity varchar [note: 'sev1, sev2, sev3']
   
   start_time timestamp

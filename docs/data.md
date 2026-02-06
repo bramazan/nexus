@@ -17,6 +17,10 @@ Kod tabanındaki aktivitelerin derinlemesine analizi için tasarlanmıştır.
     *   **Ne İçin Lazım?** Sadece "onaylandı" bilgisini değil, "Reviewer Load" (inceleyen üzerindeki yük), "Pickup Time" (incelemenin başlaması için geçen süre) ve "Review Time" metriklerini hesaplamak için kullanılır.
 *   **`code_changes`**: Commit bazlı dosya değişiklikleri.
     *   `is_refactor` / `is_rework`: Kodun evrimini ve teknik borç ödemelerini takip etmek için heuristic analizle doldurulur.
+*   **`pipelines` ve `jobs`**: CI/CD süreçlerinin detaylı takibi.
+    *   `duration`: İşin ne kadar sürdüğü (Lead Time for Changes etkileyebilir).
+    *   `status`: Başarılı/Hatalı durumları.
+
 
 ## 3. Proje Yönetimi ve Akış (Flow & Planning)
 İşin sadece sonucunu değil, nasıl aktığını ölçmek için tasarlanmıştır (Flow Efficiency).
@@ -35,6 +39,11 @@ Sistemin stabilitesi ve olaylara müdahale hızını ölçer.
     *   `detected_at`: Sistemin (örn. Instana) sorunu fark ettiği an (MTTD hesabı için).
     *   `acknowledged_at`: Bir mühendisin olayı üstlendiği an (MTTA hesabı için).
     *   `end_time` - `start_time`: Olayın toplam süresi (MTTR).
+    *   `external_id`: Instana veya PagerDuty gibi dış kaynaklardan gelen ID.
+*   **`service_metrics`**: Servislerin anlık sağlık durumları.
+    *   **Golden Signals**: Latency, Error Rate, Throughput.
+    *   **Resource Usage**: CPU, Memory.
+
 
 ## 5. Kimlik, Takım ve Mimarisi
 

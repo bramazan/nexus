@@ -379,5 +379,5 @@ INSERT INTO metric_thresholds (id, metric_name, segment, min_value, max_value, l
 ('b8c9d0e1-f2a3-4b4c-5d6e-7f8a9b0c1d2e', 'pr_complexity', 'default', 0.0, 200.0, 'Elite', NOW()), -- < 200 Lines
 ('c9d0e1f2-a3b4-4c5d-6e7f-8a9b0c1d2e3f', 'rework_rate', 'default', 0.0, 3.0, 'Elite', NOW()), -- < 3%
 ('d0e1f2a3-b4c5-4d6e-7f8a-9b0c1d2e3f4a', 'defect_density', 'default', 0.0, 0.2, 'Elite', NOW()), -- < 0.2 per 1k lines
-('e1f2a3b4-c5d6-4e7f-8a9b-0c1d2e3f4a5b', 'code_coverage', 'default', 80.0, NULL, 'Elite', NOW() -- > 80%
+('e1f2a3b4-c5d6-4e7f-8a9b-0c1d2e3f4a5b', 'code_coverage', 'default', 80.0, NULL, 'Elite', NOW()) -- > 80%
 ON CONFLICT DO NOTHING;

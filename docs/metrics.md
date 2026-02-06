@@ -1,4 +1,4 @@
-# 📊 Nexus 2026: Kapsamlı Mantık ve Metrik Envanteri (70+ Metrik)
+# 📊 Kapsamlı Mantık ve Metrik Envanteri (70+ Metrik)
 
 > [!IMPORTANT]
 > **Gizlilik ve Etik Bildirgesi**

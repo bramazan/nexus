@@ -46,9 +46,9 @@ Sistem sağlığı ve DORA (MTTR, MTTD) metrikleri için.
 
 | Durum | Sıra | Veri Nesnesi | Çekilecek Veri (Örnek) | Entity Type | Kritik Veri Alanları |
 | :---: | :--- | :--- | :--- | :--- | :--- |
-| [ ] | 3.1 | **Events / Incidents** | Events API | `incident` | start_time, text, problem_id. |
-| [ ] | 3.2 | **Application Vitals** | Application Metrics | `service_health` | latency, error_rate, throughput. |
-| [ ] | 3.3 | **Trace Root Causes** | Snapshot / Trace | `root_cause` | Hata kaynağı (Commit Hash / Service Name). |
+| [x] | 3.1 | **Events / Incidents** | Events API | `incident` | start_time, text, problem_id. |
+| [x] | 3.2 | **Application Vitals** | Application Metrics | `service_health` | latency, error_rate, throughput. |
+| [x] | 3.3 | **Trace Root Causes** | Snapshot / Trace | `root_cause` | Hata kaynağı (Commit Hash / Service Name). |
 
 ---
 

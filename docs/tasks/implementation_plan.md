@@ -42,7 +42,7 @@ Goal: Define where the code and work actually lives.
     - [ ] Extend logic to auto-link Repositories to Integrations during sync.
 
 - [ ] **8. Service Catalog Definition**
-    - [ ] Create `Service` entities (e.g., "Payment API").
+    - [x] Create `Service` entities (e.g., "Payment API").
     - [ ] Assign `Service` ownership to `Teams`.
     - [ ] Link `Service` to `Repository` via `ServiceRepository` table.
 
@@ -64,9 +64,9 @@ Goal: Process raw data into standard tables.
 
 - [ ] **12. Sync Engine Implementation**
     - [ ] Create `SyncController` or `WorkerService`.
-    - [ ] **GitLab Sync Handler:** Fetch -> Map Users -> Save to `PullRequests`, `Commits`.
+    - [x] **GitLab Sync Handler:** Fetch -> Map Users -> Save to `PullRequests`, `Commits`.
     - [ ] **Jira Sync Handler:** Fetch -> Map Users -> Save to `Issues`, `Sprints`.
-    - [ ] **Instana Sync Handler:** Fetch -> Save to `Incidents`, `Deployments`.
+    - [x] **Instana Sync Handler:** Fetch -> Save to `Incidents`, `Deployments`.
 
 ## Phase 6: Visualization
 Goal: Show the insights.
