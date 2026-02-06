@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nexus.Infrastructure.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Nexus.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260205203204_AddInstanaEntities")]
+    partial class AddInstanaEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -617,67 +620,6 @@ namespace Nexus.Infrastructure.Migrations
                         .HasDatabaseName("ix_issue_sprint_links_sprint_id");
 
                     b.ToTable("issue_sprint_links");
-                });
-
-            modelBuilder.Entity("Nexus.Domain.Entities.Job", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text")
-                        .HasColumnName("created_by");
-
-                    b.Property<double?>("Duration")
-                        .HasColumnType("double precision")
-                        .HasColumnName("duration");
-
-                    b.Property<string>("ExternalId")
-                        .HasColumnType("text")
-                        .HasColumnName("external_id");
-
-                    b.Property<DateTime?>("FinishedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("finished_at");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.Property<Guid>("PipelineId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("pipeline_id");
-
-                    b.Property<string>("Stage")
-                        .HasColumnType("text")
-                        .HasColumnName("stage");
-
-                    b.Property<DateTime?>("StartedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("started_at");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("text")
-                        .HasColumnName("status");
-
-                    b.Property<string>("WebUrl")
-                        .HasColumnType("text")
-                        .HasColumnName("web_url");
-
-                    b.HasKey("Id")
-                        .HasName("pk_jobs");
-
-                    b.HasIndex("PipelineId")
-                        .HasDatabaseName("ix_jobs_pipeline_id");
-
-                    b.ToTable("jobs");
                 });
 
             modelBuilder.Entity("Nexus.Domain.Entities.MetricThreshold", b =>
@@ -1752,18 +1694,6 @@ namespace Nexus.Infrastructure.Migrations
                     b.Navigation("Sprint");
                 });
 
-            modelBuilder.Entity("Nexus.Domain.Entities.Job", b =>
-                {
-                    b.HasOne("Nexus.Domain.Entities.Pipeline", "Pipeline")
-                        .WithMany("Jobs")
-                        .HasForeignKey("PipelineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_jobs_pipelines_pipeline_id");
-
-                    b.Navigation("Pipeline");
-                });
-
             modelBuilder.Entity("Nexus.Domain.Entities.Pipeline", b =>
                 {
                     b.HasOne("Nexus.Domain.Entities.Integration", "Integration")
@@ -2026,11 +1956,6 @@ namespace Nexus.Infrastructure.Migrations
                     b.Navigation("Events");
 
                     b.Navigation("SprintLinks");
-                });
-
-            modelBuilder.Entity("Nexus.Domain.Entities.Pipeline", b =>
-                {
-                    b.Navigation("Jobs");
                 });
 
             modelBuilder.Entity("Nexus.Domain.Entities.PullRequest", b =>

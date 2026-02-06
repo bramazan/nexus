@@ -15,12 +15,16 @@ Kod yaşam döngüsü, AI katkısı ve DORA metrikleri için ana kaynak.
 | :---: | :--- | :--- | :--- | :--- | :--- |
 | [x] | 1.1 | **Commits** | `/projects/:id/repository/commits` | `commits` | author_email, committed_date, message, stats. |
 | [x] | 1.2 | **Merge Requests (MRs)** | `/projects/:id/merge_requests` | `pull_request` | created_at, merged_at, source_branch, target_branch, description. |
-| [ ] | 1.3 | **MR Diffs / Changes** | `/merge_requests/:iid/changes` | `code_change` | file_path, **diff/patch** içeriği. |
-| [ ] | 1.4 | **Discussions (Reviews)** | `/merge_requests/:iid/notes` | `review` | body, created_at, author. |
-| [ ] | 1.5 | **Approvals** | `/merge_requests/:iid/approvals` | `review_approval` | Onaylayan kişi, zaman damgası. |
-| [ ] | 1.6 | **Pipelines / Jobs** | `/projects/:id/pipelines` | `deployment` | status, duration, sha. |
-| [ ] | 1.7 | **Deployments** | `/projects/:id/deployments` | `deployment_event` | environment, status, deployable, created_at. |
-| [ ] | 1.8 | **Releases / Tags** | `/projects/:id/releases` | `release` | tag_name, description, released_at, commit. |
+| [x] | 1.3 | **MR Diffs / Changes** | `/merge_requests/:iid/changes` | `code_change` | file_path, **diff/patch** içeriği. |
+| [x] | 1.4 | **Discussions (Reviews)** | `/merge_requests/:iid/notes` | `review` | body, created_at, author. (Entity: `PullRequestReview`) |
+| [x] | 1.5 | **Approvals** | `/merge_requests/:iid/approvals` | `review_approval` | Onaylayan kişi, zaman damgası. |
+| [x] | 1.6 | **Pipelines / Jobs** | `/projects/:id/pipelines` | `pipeline` | status, duration, sha. |
+| [x] | 1.7 | **Deployments** | `/projects/:id/deployments` | `deployment` | environment, status, deployable, created_at. |
+| [x] | 1.8 | **Releases / Tags** | `/projects/:id/releases` | `release` | tag_name, description, released_at, commit. |
+| [x] | 1.9 | **Issues** | `/projects/:id/issues` | `issues` | title, description, state, created_at, closed_at. |
+| [x] | 1.10 | **Members** | `/projects/:id/members/all` | `members` | username, name, access_level. |
+| [x] | 1.11 | **Branches** | `/projects/:id/repository/branches` | `branches` | name, commit, protected. |
+| [x] | 1.12 | **Jobs** | `/projects/:id/jobs` | `jobs` | name, stage, status, duration. |
 
 ---
 

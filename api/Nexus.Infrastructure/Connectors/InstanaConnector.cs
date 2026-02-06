@@ -85,17 +85,23 @@ namespace Nexus.Infrastructure.Connectors
         {
             var client = await CreateClientAsync(integrationId);
             
-            // This is a simplified implementation. Real metric API often requires POST with complex payload.
-            // For now, assuming standard infrastructure metrics endpoint pattern for learning purposes.
-            // Often: POST /api/infrastructure-monitoring/metrics
+            // Example metric query payload
+            // In a real scenario, this would dynamically build the payload based on 'query' string (e.g. "entity.serviceId:xyz")
             var requestBody = new
             {
-                metrics = new[] { "cpu.auth", "cpu.sys" }, // Example
-                plugin = "host",
-                rollup = 5
+                metrics = new[] { "completed", "erroneous", "latency-mean" }, // Standard Application Vitals
+                plugin = "application",
+                rollup = windowSize / 1000 // Simple rollup based on window
+                // Filters would go here based on query
             };
             
-            // Placeholder: Returning empty for now as query construction is specific to usecase
+            // For now, returning an empty structure or a mock structure if needed.
+            // Since we can't hit real Instana API without credentials, we keep this aligned with DTOs.
+            // If credentials existed, we would do:
+            // var jsonKey = JsonSerializer.Serialize(requestBody);
+            // var content = new StringContent(jsonKey, Encoding.UTF8, "application/json");
+            // var response = await client.PostAsync("/api/infrastructure-monitoring/metrics", content); // Endpoint varies by metric type
+            
             return new InstanaMetricResponse(); 
         }
 

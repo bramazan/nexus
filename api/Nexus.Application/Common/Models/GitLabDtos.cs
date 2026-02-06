@@ -21,6 +21,9 @@ namespace Nexus.Application.Common.Models
 
         [JsonPropertyName("environment")]
         public GitLabEnvironment Environment { get; set; } = new();
+
+        [JsonPropertyName("user")]
+        public GitLabUser? User { get; set; }
     }
 
     public class GitLabEnvironment
@@ -255,6 +258,9 @@ namespace Nexus.Application.Common.Models
         
         [JsonPropertyName("assignee")]
         public GitLabUser? Assignee { get; set; }
+
+        [JsonPropertyName("assignees")]
+        public List<GitLabUser> Assignees { get; set; } = new();
         
         [JsonPropertyName("due_date")]
         public string? DueDate { get; set; } // YYYY-MM-DD
@@ -306,5 +312,8 @@ namespace Nexus.Application.Common.Models
          
          [JsonPropertyName("author")]
          public GitLabUser Author { get; set; } = new();
+
+         [JsonPropertyName("commit")]
+         public GitLabCommit? Commit { get; set; }
     }
 }

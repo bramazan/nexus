@@ -149,6 +149,26 @@ namespace Nexus.Infrastructure.Connectors
             return await client.GetFromJsonAsync<IList<GitLabCommit>>(url) ?? new List<GitLabCommit>();
         }
 
+        public async Task<JsonElement> GetMergeRequestNotesAsync(Guid integrationId, int projectId, int mergeRequestId)
+        {
+            var client = await CreateHttpClientAsync(integrationId);
+            var url = $"api/v4/projects/{projectId}/merge_requests/{mergeRequestId}/notes?per_page=100&sort=asc&order_by=created_at";
+            
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<JsonElement>();
+        }
+
+        public async Task<JsonElement> GetMergeRequestApprovalsAsync(Guid integrationId, int projectId, int mergeRequestId)
+        {
+            var client = await CreateHttpClientAsync(integrationId);
+            var url = $"api/v4/projects/{projectId}/merge_requests/{mergeRequestId}/approvals";
+            
+            var response = await client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<JsonElement>();
+        }
+
         private async Task<HttpClient> CreateHttpClientAsync(Guid integrationId)
         {
             var integration = await _context.Integrations.FindAsync(integrationId);

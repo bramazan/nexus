@@ -1,4 +1,6 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Collections.Generic;
 
 namespace Nexus.Application.Common.Models
 {
@@ -55,7 +57,38 @@ namespace Nexus.Application.Common.Models
         [JsonPropertyName("updated")]
         public DateTime Updated { get; set; }
 
-        // Custom fields can be added here as needed
+        [JsonPropertyName("issuelinks")]
+        public List<JiraIssueLink> IssueLinks { get; set; } = new();
+
+        [JsonExtensionData]
+        public Dictionary<string, JsonElement> CustomFields { get; set; } = new();
+    }
+
+    public class JiraIssueLink
+    {
+        [JsonPropertyName("id")]
+        public string Id { get; set; } = string.Empty;
+        
+        [JsonPropertyName("type")]
+        public JiraIssueLinkType Type { get; set; } = new();
+        
+        [JsonPropertyName("inwardIssue")]
+        public JiraIssue? InwardIssue { get; set; }
+        
+        [JsonPropertyName("outwardIssue")]
+        public JiraIssue? OutwardIssue { get; set; }
+    }
+
+    public class JiraIssueLinkType
+    {
+        [JsonPropertyName("name")]
+        public string Name { get; set; } = string.Empty;
+        
+        [JsonPropertyName("inward")]
+        public string Inward { get; set; } = string.Empty;
+        
+        [JsonPropertyName("outward")]
+        public string Outward { get; set; } = string.Empty;
     }
 
     public class JiraStatus

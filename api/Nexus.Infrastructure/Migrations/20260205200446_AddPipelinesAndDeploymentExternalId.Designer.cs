@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nexus.Infrastructure.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Nexus.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260205200446_AddPipelinesAndDeploymentExternalId")]
+    partial class AddPipelinesAndDeploymentExternalId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -330,10 +333,6 @@ namespace Nexus.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("end_time");
 
-                    b.Property<string>("ExternalId")
-                        .HasColumnType("text")
-                        .HasColumnName("external_id");
-
                     b.Property<Guid?>("RootCauseCommitId")
                         .HasColumnType("uuid")
                         .HasColumnName("root_cause_commit_id");
@@ -617,67 +616,6 @@ namespace Nexus.Infrastructure.Migrations
                         .HasDatabaseName("ix_issue_sprint_links_sprint_id");
 
                     b.ToTable("issue_sprint_links");
-                });
-
-            modelBuilder.Entity("Nexus.Domain.Entities.Job", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text")
-                        .HasColumnName("created_by");
-
-                    b.Property<double?>("Duration")
-                        .HasColumnType("double precision")
-                        .HasColumnName("duration");
-
-                    b.Property<string>("ExternalId")
-                        .HasColumnType("text")
-                        .HasColumnName("external_id");
-
-                    b.Property<DateTime?>("FinishedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("finished_at");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
-
-                    b.Property<Guid>("PipelineId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("pipeline_id");
-
-                    b.Property<string>("Stage")
-                        .HasColumnType("text")
-                        .HasColumnName("stage");
-
-                    b.Property<DateTime?>("StartedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("started_at");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("text")
-                        .HasColumnName("status");
-
-                    b.Property<string>("WebUrl")
-                        .HasColumnType("text")
-                        .HasColumnName("web_url");
-
-                    b.HasKey("Id")
-                        .HasName("pk_jobs");
-
-                    b.HasIndex("PipelineId")
-                        .HasDatabaseName("ix_jobs_pipeline_id");
-
-                    b.ToTable("jobs");
                 });
 
             modelBuilder.Entity("Nexus.Domain.Entities.MetricThreshold", b =>
@@ -1022,14 +960,6 @@ namespace Nexus.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<Guid?>("AuthorId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("author_id");
-
-                    b.Property<string>("CommitSha")
-                        .HasColumnType("text")
-                        .HasColumnName("commit_sha");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
@@ -1050,10 +980,6 @@ namespace Nexus.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("service_id");
 
-                    b.Property<string>("TagName")
-                        .HasColumnType("text")
-                        .HasColumnName("tag_name");
-
                     b.Property<string>("Version")
                         .IsRequired()
                         .HasColumnType("text")
@@ -1061,9 +987,6 @@ namespace Nexus.Infrastructure.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_releases");
-
-                    b.HasIndex("AuthorId")
-                        .HasDatabaseName("ix_releases_author_id");
 
                     b.HasIndex("ServiceId")
                         .HasDatabaseName("ix_releases_service_id");
@@ -1166,62 +1089,6 @@ namespace Nexus.Infrastructure.Migrations
                         .HasDatabaseName("ix_services_workspace_id");
 
                     b.ToTable("services");
-                });
-
-            modelBuilder.Entity("Nexus.Domain.Entities.ServiceMetric", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<double?>("CpuUsage")
-                        .HasColumnType("double precision")
-                        .HasColumnName("cpu_usage");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("text")
-                        .HasColumnName("created_by");
-
-                    b.Property<double?>("ErrorRate")
-                        .HasColumnType("double precision")
-                        .HasColumnName("error_rate");
-
-                    b.Property<double?>("Latency")
-                        .HasColumnType("double precision")
-                        .HasColumnName("latency");
-
-                    b.Property<double?>("MemoryUsage")
-                        .HasColumnType("double precision")
-                        .HasColumnName("memory_usage");
-
-                    b.Property<string>("MetricType")
-                        .HasColumnType("text")
-                        .HasColumnName("metric_type");
-
-                    b.Property<Guid>("ServiceId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("service_id");
-
-                    b.Property<double?>("Throughput")
-                        .HasColumnType("double precision")
-                        .HasColumnName("throughput");
-
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("time_stamp");
-
-                    b.HasKey("Id")
-                        .HasName("pk_service_metrics");
-
-                    b.HasIndex("ServiceId")
-                        .HasDatabaseName("ix_service_metrics_service_id");
-
-                    b.ToTable("service_metrics");
                 });
 
             modelBuilder.Entity("Nexus.Domain.Entities.ServiceRepository", b =>
@@ -1752,18 +1619,6 @@ namespace Nexus.Infrastructure.Migrations
                     b.Navigation("Sprint");
                 });
 
-            modelBuilder.Entity("Nexus.Domain.Entities.Job", b =>
-                {
-                    b.HasOne("Nexus.Domain.Entities.Pipeline", "Pipeline")
-                        .WithMany("Jobs")
-                        .HasForeignKey("PipelineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_jobs_pipelines_pipeline_id");
-
-                    b.Navigation("Pipeline");
-                });
-
             modelBuilder.Entity("Nexus.Domain.Entities.Pipeline", b =>
                 {
                     b.HasOne("Nexus.Domain.Entities.Integration", "Integration")
@@ -1846,19 +1701,12 @@ namespace Nexus.Infrastructure.Migrations
 
             modelBuilder.Entity("Nexus.Domain.Entities.Release", b =>
                 {
-                    b.HasOne("Nexus.Domain.Entities.User", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .HasConstraintName("fk_releases_users_author_id");
-
                     b.HasOne("Nexus.Domain.Entities.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_releases_services_service_id");
-
-                    b.Navigation("Author");
 
                     b.Navigation("Service");
                 });
@@ -1892,18 +1740,6 @@ namespace Nexus.Infrastructure.Migrations
                     b.Navigation("OwnerTeam");
 
                     b.Navigation("Workspace");
-                });
-
-            modelBuilder.Entity("Nexus.Domain.Entities.ServiceMetric", b =>
-                {
-                    b.HasOne("Nexus.Domain.Entities.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_service_metrics_services_service_id");
-
-                    b.Navigation("Service");
                 });
 
             modelBuilder.Entity("Nexus.Domain.Entities.ServiceRepository", b =>
@@ -2026,11 +1862,6 @@ namespace Nexus.Infrastructure.Migrations
                     b.Navigation("Events");
 
                     b.Navigation("SprintLinks");
-                });
-
-            modelBuilder.Entity("Nexus.Domain.Entities.Pipeline", b =>
-                {
-                    b.Navigation("Jobs");
                 });
 
             modelBuilder.Entity("Nexus.Domain.Entities.PullRequest", b =>

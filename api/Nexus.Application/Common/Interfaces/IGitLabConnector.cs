@@ -24,6 +24,8 @@ namespace Nexus.Application.Common.Interfaces
         // Deep Dive
         Task<IList<GitLabJob>> GetJobsAsync(Guid integrationId, int projectId, int pipelineId);
         Task<IList<GitLabCommit>> GetMergeRequestCommitsAsync(Guid integrationId, int projectId, int mergeRequestId);
+        Task<JsonElement> GetMergeRequestNotesAsync(Guid integrationId, int projectId, int mergeRequestId);
+        Task<JsonElement> GetMergeRequestApprovalsAsync(Guid integrationId, int projectId, int mergeRequestId);
         
         // Legacy Sync
         Task SyncProjectsAsync(Guid integrationId);

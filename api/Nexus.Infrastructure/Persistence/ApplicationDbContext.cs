@@ -27,6 +27,7 @@ namespace Nexus.Infrastructure.Persistence
         public DbSet<CodeChange> CodeChanges => Set<CodeChange>();
         public DbSet<PullRequest> PullRequests => Set<PullRequest>();
         public DbSet<PullRequestReview> PullRequestReviews => Set<PullRequestReview>();
+        public DbSet<Pipeline> Pipelines => Set<Pipeline>();
         public DbSet<AiSignal> AiSignals => Set<AiSignal>();
         
         public DbSet<Sprint> Sprints => Set<Sprint>();
@@ -39,7 +40,9 @@ namespace Nexus.Infrastructure.Persistence
         
         public DbSet<Deployment> Deployments => Set<Deployment>();
         public DbSet<Release> Releases => Set<Release>();
-        public DbSet<Incident> Incidents => Set<Incident>();
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<Incident> Incidents { get; set; }
+        public DbSet<ServiceMetric> ServiceMetrics { get; set; }
         public DbSet<UserAvailability> UserAvailabilities => Set<UserAvailability>();
         public DbSet<MetricThreshold> MetricThresholds => Set<MetricThreshold>();
 

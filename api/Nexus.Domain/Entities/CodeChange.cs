@@ -4,8 +4,11 @@ namespace Nexus.Domain.Entities
 {
     public class CodeChange : BaseEntity
     {
-        public Guid CommitId { get; set; }
-        public Commit Commit { get; set; } = null!;
+        public Guid? CommitId { get; set; }
+        public Commit? Commit { get; set; }
+        
+        public Guid? PullRequestId { get; set; }
+        public PullRequest? PullRequest { get; set; }
         
         public required string FilePath { get; set; }
         public int LinesAdded { get; set; }

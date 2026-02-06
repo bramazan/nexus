@@ -24,6 +24,7 @@ namespace Nexus.Application.Common.Interfaces
         DbSet<CodeChange> CodeChanges { get; }
         DbSet<PullRequest> PullRequests { get; }
         DbSet<PullRequestReview> PullRequestReviews { get; }
+        DbSet<Pipeline> Pipelines { get; }
         DbSet<AiSignal> AiSignals { get; }
         
         DbSet<Sprint> Sprints { get; }
@@ -36,7 +37,9 @@ namespace Nexus.Application.Common.Interfaces
         
         DbSet<Deployment> Deployments { get; }
         DbSet<Release> Releases { get; }
+        DbSet<Job> Jobs { get; }
         DbSet<Incident> Incidents { get; }
+        DbSet<ServiceMetric> ServiceMetrics { get; }
         DbSet<UserAvailability> UserAvailabilities { get; }
         DbSet<MetricThreshold> MetricThresholds { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);

@@ -32,8 +32,10 @@ namespace Nexus.Application.GitLab.Commands
                 "pipelines" or "deployment" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/pipelines?per_page=100",
                 "jobs" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/jobs?per_page=100",
                 "issues" or "issue" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/issues?per_page=100",
-                "deployments" or "deployment_event" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/deployments?per_page=100",
+                "deployments" or "deployment" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/deployments?per_page=100",
                 "releases" or "release" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/releases?per_page=100",
+                "members" or "member" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/members/all?per_page=100",
+                "branches" or "branch" => $"api/v4/projects/{Uri.EscapeDataString(request.ProjectId)}/repository/branches?per_page=100",
                 _ => throw new ArgumentException($"Unsupported DataType: {request.DataType}")
             };
 

@@ -70,7 +70,7 @@ namespace Nexus.Infrastructure.Connectors
                 jql = jql,
                 startAt = startAt,
                 maxResults = maxResults,
-                fields = new[] { "summary", "status", "priority", "issuetype", "created", "updated" } 
+                fields = new[] { "summary", "status", "priority", "issuetype", "created", "updated", "issuelinks", "reporter", "assignee", "parent" } 
             };
 
             var json = JsonSerializer.Serialize(requestBody);

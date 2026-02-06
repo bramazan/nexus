@@ -8,6 +8,7 @@ namespace Nexus.Domain.Entities
         public Service Service { get; set; } = null!;
         
         public required string Title { get; set; }
+        public string? ExternalId { get; set; }
         public string? Severity { get; set; } // sev1, sev2
         
         public DateTime StartTime { get; set; }

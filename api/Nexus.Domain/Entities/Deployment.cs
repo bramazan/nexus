@@ -9,6 +9,8 @@ namespace Nexus.Domain.Entities
         
         public required string Environment { get; set; } // prod, staging
         
+        public string? ExternalId { get; set; } // GitLab Deployment ID (or specific ID)
+        
         public DateTime StartedAt { get; set; }
         public DateTime? DeployedAt { get; set; }
         

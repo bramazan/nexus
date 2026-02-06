@@ -8,8 +8,11 @@ namespace Nexus.Domain.Entities
         public Guid PullRequestId { get; set; }
         public PullRequest PullRequest { get; set; } = null!;
         
-        public Guid AuthorToolAccountId { get; set; }
-        public ToolAccount AuthorToolAccount { get; set; } = null!;
+        public Guid? AuthorToolAccountId { get; set; }
+        public ToolAccount? AuthorToolAccount { get; set; }
+        
+        public string? ExternalId { get; set; }
+        public string? Body { get; set; }
         
         public required string State { get; set; } // approved, changes_requested, commented
         public DateTime SubmittedAt { get; set; }
