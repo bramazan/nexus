@@ -1,0 +1,1836 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 Mühendislik Metrikleri Envanteri</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+
+                /* Colors */
+--bg-color: #f3f4f6;
+--card-bg: #ffffff;
+--text-primary: #111827;
+--text-secondary: #4b5563;
+--text-tertiary: #9ca3af;
+--border-color: #e5e7eb;
+--primary-accent: #3b82f6;
+
+
+                /* Category Colors */
+--cat-1: #3b82f6;
+
+                /* Blue */
+--cat-2: #8b5cf6;
+
+                /* Purple */
+--cat-3: #10b981;
+
+                /* Green */
+--cat-4: #f59e0b;
+
+                /* Amber */
+--cat-5: #ec4899;
+
+                /* Pink */
+--cat-6: #6366f1;
+
+                /* Indigo */
+--cat-7: #ef4444;
+
+                /* Red */
+--cat-8: #14b8a6;
+
+                /* Teal */
+
+                /* Spacing */
+--spacing-xs: 0.25rem;
+--spacing-sm: 0.5rem;
+--spacing-md: 1rem;
+--spacing-lg: 1.5rem;
+--spacing-xl: 2rem;
+--spacing-2xl: 3rem;
+
+
+                /* Shadows */
+--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+--shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+--shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+        }
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+
+        }
+
+body {
+background-color: var(--bg-color);
+color: var(--text-primary);
+font-family: 'Inter', sans-serif;
+line-height: 1.5;
+-webkit-font-smoothing: antialiased;
+
+        }
+
+.container {
+max-width: 1280px;
+margin: 0 auto;
+padding: var(--spacing-xl) var(--spacing-md);
+
+        }
+
+
+
+        /* Header Styles */
+.report-header {
+text-align: center;
+margin-bottom: var(--spacing-2xl);
+position: relative;
+
+        }
+
+.report-header h1 {
+font-size: 2.5rem;
+font-weight: 800;
+letter-spacing: -0.025em;
+color: var(--text-primary);
+margin-bottom: var(--spacing-sm);
+background: linear-gradient(135deg, #111827 0%, #4b5563 100%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
+        }
+
+.report-header p {
+font-size: 1.125rem;
+color: var(--text-secondary);
+font-weight: 500;
+
+        }
+
+
+
+        /* Note Card */
+.note-card {
+background-color: #fffbeb;
+border-left: 4px solid #f59e0b;
+padding: var(--spacing-lg);
+border-radius: 8px;
+margin-bottom: var(--spacing-2xl);
+box-shadow: var(--shadow-sm);
+display: flex;
+align-items: flex-start;
+gap: var(--spacing-md);
+
+        }
+
+.note-icon {
+font-size: 1.5rem;
+
+        }
+
+.note-content {
+font-size: 0.95rem;
+color: #92400e;
+
+        }
+
+.note-content strong {
+display: block;
+margin-bottom: var(--spacing-xs);
+color: #b45309;
+
+        }
+
+
+
+        /* Category Card */
+.category-card {
+background: var(--card-bg);
+border-radius: 16px;
+box-shadow: var(--shadow);
+margin-bottom: var(--spacing-2xl);
+overflow: hidden;
+border: 1px solid var(--border-color);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        }
+
+.category-card:hover {
+box-shadow: var(--shadow-lg);
+
+        }
+
+.category-header {
+padding: var(--spacing-lg) var(--spacing-xl);
+display: flex;
+align-items: center;
+gap: var(--spacing-md);
+border-bottom: 1px solid var(--border-color);
+background-color: #ffffff;
+
+        }
+
+.category-number {
+width: 40px;
+height: 40px;
+border-radius: 12px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 700;
+font-size: 1.125rem;
+color: white;
+flex-shrink: 0;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        }
+
+.category-title {
+font-size: 1.25rem;
+font-weight: 700;
+color: var(--text-primary);
+flex-grow: 1;
+
+        }
+
+.cat-note {
+background-color: #fef3c7;
+padding: var(--spacing-md) var(--spacing-lg);
+font-size: 0.875rem;
+color: #92400e;
+border-bottom: 1px solid #fcd34d;
+display: flex;
+gap: var(--spacing-sm);
+
+        }
+
+
+
+        /* Accent Colors Application */
+.cat-1 .category-number {
+background: linear-gradient(135deg, var(--cat-1), #2563eb);
+
+        }
+
+.cat-2 .category-number {
+background: linear-gradient(135deg, var(--cat-2), #7c3aed);
+
+        }
+
+.cat-3 .category-number {
+background: linear-gradient(135deg, var(--cat-3), #059669);
+
+        }
+
+.cat-4 .category-number {
+background: linear-gradient(135deg, var(--cat-4), #d97706);
+
+        }
+
+.cat-5 .category-number {
+background: linear-gradient(135deg, var(--cat-5), #db2777);
+
+        }
+
+.cat-6 .category-number {
+background: linear-gradient(135deg, var(--cat-6), #4f46e5);
+
+        }
+
+.cat-7 .category-number {
+background: linear-gradient(135deg, var(--cat-7), #dc2626);
+
+        }
+
+.cat-8 .category-number {
+background: linear-gradient(135deg, var(--cat-8), #0d9488);
+
+        }
+
+.cat-1 .category-title {
+color: var(--cat-1);
+
+        }
+
+.cat-2 .category-title {
+color: var(--cat-2);
+
+        }
+
+.cat-3 .category-title {
+color: var(--cat-3);
+
+        }
+
+.cat-4 .category-title {
+color: var(--cat-4);
+
+        }
+
+.cat-5 .category-title {
+color: var(--cat-5);
+
+        }
+
+.cat-6 .category-title {
+color: var(--cat-6);
+
+        }
+
+.cat-7 .category-title {
+color: var(--cat-7);
+
+        }
+
+.cat-8 .category-title {
+color: var(--cat-8);
+
+        }
+
+
+
+        /* Table Styles */
+.table-responsive {
+overflow-x: auto;
+
+        }
+
+table {
+width: 100%;
+border-collapse: collapse;
+font-size: 0.9375rem;
+
+        }
+
+thead tr {
+background-color: #f9fafb;
+
+        }
+
+th {
+text-align: left;
+padding: var(--spacing-md) var(--spacing-lg);
+font-size: 0.75rem;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+color: var(--text-secondary);
+border-bottom: 1px solid var(--border-color);
+
+        }
+
+th:first-child {
+padding-left: var(--spacing-xl);
+width: 60px;
+
+        }
+
+td {
+padding: var(--spacing-md) var(--spacing-lg);
+border-bottom: 1px solid var(--border-color);
+vertical-align: top;
+color: var(--text-secondary);
+
+        }
+
+td:first-child {
+padding-left: var(--spacing-xl);
+font-weight: 600;
+color: var(--text-tertiary);
+
+        }
+
+tbody tr:last-child td {
+border-bottom: none;
+
+        }
+
+tbody tr:hover {
+background-color: #f9fafb;
+
+        }
+
+.metric-content {
+display: flex;
+flex-direction: column;
+gap: 2px;
+
+        }
+
+.metric-name {
+font-weight: 600;
+color: var(--text-primary);
+font-size: 1rem;
+
+        }
+
+.metric-desc {
+font-size: 0.875rem;
+color: var(--text-secondary);
+line-height: 1.4;
+
+        }
+
+
+
+        /* Tags/Badges */
+.badge {
+display: inline-flex;
+align-items: center;
+padding: 2px 10px;
+border-radius: 9999px;
+font-size: 0.75rem;
+font-weight: 600;
+letter-spacing: 0.025em;
+
+        }
+
+.beta-badge {
+display: inline-flex;
+align-items: center;
+padding: 2px 8px;
+border-radius: 6px;
+font-size: 0.65rem;
+font-weight: 700;
+background-color: #fff7ed;
+color: #ea580c;
+border: 1px solid #fed7aa;
+margin-left: 10px;
+vertical-align: middle;
+text-transform: uppercase;
+
+        }
+
+
+
+        /* Tag Colors */
+.tag-l1 {
+background-color: #dcfce7;
+color: #166534;
+
+        }
+
+.tag-l2 {
+background-color: #dbeafe;
+color: #1e40af;
+
+        }
+
+.tag-l3 {
+background-color: #f3e8ff;
+color: #6b21a8;
+
+        }
+
+.tag-org {
+background-color: #ffedd5;
+color: #9a3412;
+
+        }
+
+.tag-beta {
+background-color: #fee2e2;
+color: #991b1b;
+
+        }
+
+
+
+        /* Level Tags - Neater Look */
+.tag-level {
+background-color: #f3f4f6;
+color: #374151;
+border: 1px solid #e5e5e5;
+
+        }
+
+
+
+        /* Legend */
+.legend-section {
+background: white;
+padding: var(--spacing-xl);
+border-radius: 16px;
+box-shadow: var(--shadow);
+margin-top: var(--spacing-2xl);
+border: 1px solid var(--border-color);
+
+        }
+
+.legend-title {
+font-size: 1.125rem;
+font-weight: 700;
+color: var(--text-primary);
+margin-bottom: var(--spacing-lg);
+border-bottom: 2px solid var(--border-color);
+padding-bottom: var(--spacing-sm);
+display: inline-block;
+
+        }
+
+.legend-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: var(--spacing-xl);
+
+        }
+
+.legend-group h4 {
+font-size: 0.75rem;
+text-transform: uppercase;
+color: var(--text-tertiary);
+margin-bottom: var(--spacing-md);
+font-weight: 700;
+letter-spacing: 0.05em;
+
+        }
+
+.legend-items {
+display: flex;
+flex-wrap: wrap;
+gap: var(--spacing-sm);
+
+        }
+
+
+
+        /* Footer */
+.footer {
+margin-top: var(--spacing-2xl);
+text-align: center;
+padding-top: var(--spacing-xl);
+border-top: 1px solid var(--border-color);
+color: var(--text-tertiary);
+font-size: 0.875rem;
+
+        }
+
+.footer a {
+color: var(--primary-accent);
+text-decoration: none;
+font-weight: 500;
+
+        }
+
+.footer a:hover {
+text-decoration: underline;
+
+        }
+
+@media (max-width: 768px) {
+.report-header h1 {
+font-size: 1.75rem;
+
+            }
+
+.metric-desc {
+display: none;
+
+            }
+
+
+
+            /* Hide description on very small screens if needed, or just let it wrap */
+.metric-desc {
+display: block;
+font-size: 0.8rem;
+
+            }
+
+
+
+            /* Update: keep it but smaller */
+.container {
+padding: var(--spacing-md);
+
+            }
+
+th,
+td {
+padding: var(--spacing-sm);
+
+            }
+
+th:first-child,
+td:first-child {
+padding-left: var(--spacing-md);
+width: 40px;
+
+            }
+
+.category-header {
+flex-direction: column;
+align-items: flex-start;
+gap: var(--spacing-sm);
+
+            }
+
+.category-number {
+align-self: flex-start;
+
+            }
+
+
+        }
+
+
+    </style>
+
+</head>
+
+
+
+<body>
+
+<div class="container">
+
+<!-- Header -->
+<header class="report-header">
+<h1>2026 Mühendislik Metrikleri Envanteri</h1>
+<p>Engineering Intelligence Platform — 64 Metrik · 8 Kategori</p>
+</header>
+
+<!-- Important Note -->
+<div class="note-card">
+<div class="note-icon">📌</div>
+<div class="note-content">
+<strong>Önemli Not</strong>
+Bu envanterdeki hedefler organizasyonel / ekip düzeyinde hedeflerdir.
+Örneğin bu envanterde Change Failure Rate hedefi &lt;%1 (ekip ortalaması) iken, bireysel
+sağlıklı aralık &lt;%5'tir.
+İki hedef farklı amaçlara hizmet eder.
+</div>
+</div>
+
+<!-- ==================== CATEGORY 1 ==================== -->
+<div class="category-card cat-1">
+<div class="category-header">
+<div class="category-number">1</div>
+<div class="category-title">Advanced DORA & Flow Metrics</div>
+</div>
+<div class="table-responsive">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Metrik</th>
+<th>Kaynak</th>
+<th>Hedef</th>
+<th>Katman</th>
+<th>Seviye</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Cycle Time
+(Global)</span>
+<span class="metric-desc">İlk commit'ten prod'a
+kadar geçen toplam süre. Nihai akış hızı
+metriğidir.</span>
+</div>
+</td>
+<td>Git + Jira</td>
+<td>&lt; 25 Saat</td>
+<td><span class="badge tag-l1">L1</span></td>
+<td><span class="badge tag-level">Bireysel</span></td>
+</tr>
+<tr>
+<td>2</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Coding Time</span>
+<span class="metric-desc">İlk commit ile PR
+açılışı arasındaki süre. Bireysel "akış"
+durumunu ölçer.</span>
+</div>
+</td>
+<td>Git</td>
+<td>&lt; 54 Dk</td>
+<td><span class="badge tag-l3">L3</span></td>
+<td><span class="badge tag-level">Bireysel</span></td>
+</tr>
+<tr>
+<td>3</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Pickup Time</span>
+<span class="metric-desc">PR açıldıktan sonra
+incelemenin başlaması için geçen bekleme
+süresi. Darboğaz göstergesi.</span>
+</div>
+</td>
+<td>Git</td>
+<td>&lt; 60 Dk</td>
+<td><span class="badge tag-l3">L3</span></td>
+<td><span class="badge tag-level">Ekip</span></td>
+</tr>
+<tr>
+<td>4</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Review Time</span>
+<span class="metric-desc">İlk yorumdan
+merge edilene kadar geçen süre. Yüksek
+değerler belirsiz spekleri veya
+karmaşıklığı gösterir.</span>
+</div>
+</td>
+<td>Git</td>
+<td>&lt; 3 Saat</td>
+<td><span class="badge tag-l3">L3</span></td>
+<td><span class="badge tag-level">Ekip</span></td>
+</tr>
+<tr>
+<td>5</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Deploy Time</span>
+<span class="metric-desc">CI/CD pipeline süresi.
+Yavaş pipeline'lar geliştirici akışını
+keser.</span>
+</div>
+</td>
+<td>CI/CD</td>
+<td>&lt; 16 Dk</td>
+<td><span class="badge tag-l3">L3</span></td>
+<td><span class="badge tag-level">Platform</span></td>
+</tr>
+<tr>
+<td>6</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Deployment
+Frequency</span>
+<span class="metric-desc">Servis başına günlük
+başarılı dağıtım sayısı. Yüksek frekans,
+küçük batch risk'ini azaltır.</span>
+</div>
+</td>
+<td>CI/CD</td>
+<td>&gt; 1.2 / Gün</td>
+<td><span class="badge tag-l2">L2</span></td>
+<td><span class="badge tag-level">Bireysel</span></td>
+</tr>
+<tr>
+<td>7</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Failed Recovery Time
+(MTTR)</span>
+<span class="metric-desc">Başarısız bir dağıtım
+sonrası servisi geri yükleme
+süresi.</span>
+</div>
+</td>
+<td>Observability</td>
+<td>&lt; 1 Saat</td>
+<td><span class="badge tag-l3">L3</span></td>
+<td><span class="badge tag-level">Ekip</span></td>
+</tr>
+<tr>
+<td>8</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Change Failure
+Rate</span>
+<span class="metric-desc">Prod'a giden
+değişikliklerin hata oranı. Kalite ve
+güvenin temel göstergesi.</span>
+</div>
+</td>
+<td>Jira + CI/CD</td>
+<td>&lt; %1</td>
+<td><span class="badge tag-l1">L1</span></td>
+<td><span class="badge tag-level">Bireysel</span></td>
+</tr>
+<tr>
+<td>9</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Throughput</span>
+<span class="metric-desc">Zaman içinde
+tamamlanan iş birimi sayısı
+(PR/Bilet).</span>
+</div>
+</td>
+<td>Jira / Git</td>
+<td>Kararlı / Artan</td>
+<td><span class="badge tag-l3">L3</span></td>
+<td><span class="badge tag-level">Ekip</span></td>
+</tr>
+<tr>
+<td>10</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Merge Frequency</span>
+<span class="metric-desc">Geliştirici başına
+haftalık merge edilen PR sayısı. Küçük
+parçalarla sık entegrasyonu teşvik
+eder.</span>
+</div>
+</td>
+<td>Git</td>
+<td>&gt; 2.0 / Hafta</td>
+<td><span class="badge tag-l3">L3</span></td>
+<td><span class="badge tag-level">Bireysel</span></td>
+</tr>
+<tr>
+<td>11</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Flow Efficiency</span>
+<span class="metric-desc">Aktif Süre / (Aktif +
+Bekleme Süresi). İşin ne kadar süre
+boşta beklediğini gösterir.</span>
+</div>
+</td>
+<td>Jira Statüleri</td>
+<td>&gt; %40</td>
+<td><span class="badge tag-l3">L3</span></td>
+<td><span class="badge tag-level">Ekip</span></td>
+</tr>
+<tr>
+<td>12</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">WIP (Work In
+Progress)</span>
+<span class="metric-desc">Kişi başı aktif
+paralel görev sayısı. Yüksek WIP odağı
+yok eder.</span>
+</div>
+</td>
+<td>Jira + Git</td>
+<td>&lt; 2 Madde</td>
+<td><span class="badge tag-l3">L3</span></td>
+<td><span class="badge tag-level">Bireysel</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- ==================== CATEGORY 2 ==================== -->
+<div class="category-card cat-2">
+<div class="category-header">
+<div class="category-number">2</div>
+<div class="category-title">AI and Agent-based Intelligence <span class="beta-badge">⚠️
+BETA</span></div>
+</div>
+<div class="cat-note">
+<span>⚠️</span>
+<span>Bu kategorideki tüm metrikler Beta statüsündedir. Bireysel performans
+değerlendirmesinde kullanılamaz. Sadece organizasyonel trend izleme
+amaçlıdır.</span>
+</div>
+<div class="table-responsive">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Metrik</th>
+<th>Kaynak</th>
+<th>Hedef</th>
+<th>Katman</th>
+<th>Seviye</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">AI Acceptance
+Rate</span>
+<span class="metric-desc">Geliştiriciler
+tarafından kabul edilen AI önerilerinin
+oranı. Araç faydasını ölçer.</span>
+</div>
+</td>
+<td>IDE Telemetrisi</td>
+<td>&gt; %30</td>
+<td><span class="badge tag-beta">BETA</span></td>
+<td><span class="badge tag-level">Bireysel</span></td>
+</tr>
+<tr>
+<td>14</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Agentic PR Rate</span>
+<span class="metric-desc">Tamamen otonom ajanlar
+tarafından oluşturulan PR oranı.</span>
+</div>
+</td>
+<td>Git Etiketleri</td>
+<td>İzleme</td>
+<td><span class="badge tag-beta">BETA</span></td>
+<td><span class="badge tag-level">Ekip</span></td>
+</tr>
+<tr>
+<td>15</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">Review Depth
+(AI)</span>
+<span class="metric-desc">AI koduna yapılan
+review yorum sayısı vs. insan koduna
+yapılan yorumlar. "Kör Onay" riskini
+ölçer.</span>
+</div>
+</td>
+<td>Git</td>
+<td>&gt; İnsan Ort.</td>
+<td><span class="badge tag-beta">BETA</span></td>
+<td><span class="badge tag-level">Ekip</span></td>
+</tr>
+<tr>
+<td>16</td>
+<td>
+<div class="metric-content">
+<span class="metric-name">AI ROI Time</span>
+<span class="metric-desc">AI destekli görevlerin
+cycle time'ı vs. tamamen manuel
+görevler.</span>
+</div>
+</td>
+<td>Git + Jira</td>
+<td>AI &lt; Manuel</td>
+<td><span class="badge tag-beta">BETA</span></td>
+<td><span class="badge tag-level">Ekip</span></td>
+</tr><tr>
+    <td>17</td>
+    <td>
+        <div class="metric-content">
+            <span class="metric-name">Prompt Risk
+                Score</span>
+            <span class="metric-desc">Ajan girdilerinin
+                "prompt injection" saldırılarına karşı
+                savunmasızlığı.</span>
+        </div>
+    </td>
+    <td>Güvenlik Taraması</td>
+    <td>Düşük</td>
+    <td><span class="badge tag-beta">BETA</span></td>
+    <td><span class="badge tag-level">Platform</span></td>
+</tr>
+<tr>
+    <td>18</td>
+    <td>
+        <div class="metric-content">
+            <span class="metric-name">Agent Success
+                Rate</span>
+            <span class="metric-desc">Bir ajanın insan
+                müdahalesi olmadan tamamladığı
+                görevlerin yüzdesi.</span>
+        </div>
+    </td>
+    <td>Ajan Logları</td>
+    <td>&gt; %80</td>
+    <td><span class="badge tag-beta">BETA</span></td>
+    <td><span class="badge tag-level">Platform</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<!-- ==================== CATEGORY 3 ==================== -->
+<div class="category-card cat-3">
+    <div class="category-header">
+        <div class="category-number">3</div>
+        <div class="category-title">Code Quality and Risk</div>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Metrik</th>
+                    <th>Kaynak</th>
+                    <th>Hedef</th>
+                    <th>Katman</th>
+                    <th>Seviye</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>19</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Rework Rate</span>
+                            <span class="metric-desc">Merge edildikten
+                                sonraki 21 gün içinde yeniden
+                                değiştirilen kod oranı.</span>
+                        </div>
+                    </td>
+                    <td>Git</td>
+                    <td>&lt; %3</td>
+                    <td><span class="badge tag-l1">L1</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Refactor Rate</span>
+                            <span class="metric-desc">Eski koda yapılan
+                                güncellemeler. Sağlıklı teknik borç
+                                ödemesini gösterir.</span>
+                        </div>
+                    </td>
+                    <td>Git</td>
+                    <td>%10-15</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">PR Size
+                                (Complexity)</span>
+                            <span class="metric-desc">PR başına değiştirilen
+                                satır sayısı (Median LOC). Küçük
+                                değişiklikler daha güvenli ve hızlı
+                                review edilir.</span>
+                        </div>
+                    </td>
+                    <td>Git</td>
+                    <td>&lt; 200 Satır</td>
+                    <td><span class="badge tag-l2">L2</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+                <tr>
+                    <td>22</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Code Churn</span>
+                            <span class="metric-desc">Eklenen/silinen/değiştirilen
+                                kod hacmi. Yüksek ani artışlar
+                                istikrarsızlığı gösterir.</span>
+                        </div>
+                    </td>
+                    <td>Git</td>
+                    <td>Düşük</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+                <tr>
+                    <td>23</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Defect Density</span>
+                            <span class="metric-desc">1.000 satır kod başına
+                                düşen hata sayısı.</span>
+                        </div>
+                    </td>
+                    <td>SonarQube</td>
+                    <td>&lt; 0.2</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>24</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Code Coverage</span>
+                            <span class="metric-desc">Otomatik testler
+                                tarafından kapsanan kod tabanı
+                                yüzdesi.</span>
+                        </div>
+                    </td>
+                    <td>Unit Testler</td>
+                    <td>&gt; %80</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>25</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">PR Maturity</span>
+                            <span class="metric-desc">PR açıldığında kodun
+                                ne kadar "bitmiş" olduğu (test, doküman,
+                                açıklama dahil).</span>
+                        </div>
+                    </td>
+                    <td>Git</td>
+                    <td>&gt; %90</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+                <tr>
+                    <td>26</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Tech Debt Ratio</span>
+                            <span class="metric-desc">Onarım Eforu / Yeni
+                                Özellik Eforu. Sürdürülebilir kodbase
+                                sağlığını gösterir.</span>
+                        </div>
+                    </td>
+                    <td>Jira Tipleri</td>
+                    <td>&lt; %20</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ==================== CATEGORY 4 ==================== -->
+<div class="category-card cat-4">
+    <div class="category-header">
+        <div class="category-number">4</div>
+        <div class="category-title">Human and Developer Experience (DevEx)</div>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Metrik</th>
+                    <th>Kaynak</th>
+                    <th>Hedef</th>
+                    <th>Katman</th>
+                    <th>Seviye</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>27</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Focus Time</span>
+                            <span class="metric-desc">Günlük ≥2 saatlik
+                                kesintisiz çalışma bloklarının toplamı.
+                                Derin çalışmanın ön koşulu.</span>
+                        </div>
+                    </td>
+                    <td>Takvim / IDE</td>
+                    <td>&gt; 4.2 Saat</td>
+                    <td><span class="badge tag-l2">L2</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+                <tr>
+                    <td>28</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Meeting Load</span>
+                            <span class="metric-desc">Toplantılarda
+                                geçirilen sürenin yüzdesi.</span>
+                        </div>
+                    </td>
+                    <td>Takvim</td>
+                    <td>&lt; %20</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+                <tr>
+                    <td>29</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Context
+                                Switching</span>
+                            <span class="metric-desc">Gün içinde farklı
+                                ticketlar/görevler arasında geçiş
+                                sıklığı.</span>
+                        </div>
+                    </td>
+                    <td>IDE / Jira</td>
+                    <td>Düşük</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+                <tr>
+                    <td>30</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Dev eNPS</span>
+                            <span class="metric-desc">Net Tavsiye Skoru: "Bu
+                                ekibi bir arkadaşına önerir
+                                misin?"</span>
+                        </div>
+                    </td>
+                    <td>Anket</td>
+                    <td>&gt; 40</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>31</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Burnout Risk</span>
+                            <span class="metric-desc">Bileşik gösterge:
+                                Yüksek fazla mesai + izin kullanmama +
+                                yüksek WIP.</span>
+                        </div>
+                    </td>
+                    <td>İK / Git</td>
+                    <td>Düşük</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+                <tr>
+                    <td>32</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Knowledge Silos</span>
+                            <span class="metric-desc">PR incelemelerinin
+                                dağılımı. Her şeyi sadece 1-2 kişi mi
+                                inceliyor?</span>
+                        </div>
+                    </td>
+                    <td>Git</td>
+                    <td>Dengeli</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>33</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Onboarding
+                                Speed</span>
+                            <span class="metric-desc">Yeni işe başlayanların
+                                ilk anlamlı commit'i atma süresi.</span>
+                        </div>
+                    </td>
+                    <td>İK / Git</td>
+                    <td>&lt; 14 Gün</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>34</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Perceived
+                                Productivity</span>
+                            <span class="metric-desc">Geliştiriciler
+                                kendilerini üretken hissediyor
+                                mu?</span>
+                        </div>
+                    </td>
+                    <td>Anket</td>
+                    <td>Yüksek</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+                <tr>
+                    <td>35</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Peak Productivity
+                                Hours</span>
+                            <span class="metric-desc">Ekibin en çok commit
+                                attığı saat dilimleri. Toplantı
+                                planlaması için kritik.</span>
+                        </div>
+                    </td>
+                    <td>Git + Jira</td>
+                    <td>İzleme</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>36</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">After-Hours
+                                Activity</span>
+                            <span class="metric-desc">Mesai saatleri dışında
+                                veya hafta sonu yapılan işlerin oranı.
+                                Tükenmişlik erken uyarısı.</span>
+                        </div>
+                    </td>
+                    <td>Git + Jira</td>
+                    <td>&lt; %5</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div><!-- ==================== CATEGORY 5 ==================== -->
+<div class="category-card cat-5">
+    <div class="category-header">
+        <div class="category-number">5</div>
+        <div class="category-title">Planning and Product Alignment</div>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Metrik</th>
+                    <th>Kaynak</th>
+                    <th>Hedef</th>
+                    <th>Katman</th>
+                    <th>Seviye</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>37</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Planning
+                                Accuracy</span>
+                            <span class="metric-desc">Sprint hedeflerinin
+                                gerçekleşme oranı. Bireysel
+                                değerlendirmede ±%20 bandı sağlıklı
+                                kabul edilir.</span>
+                        </div>
+                    </td>
+                    <td>Jira</td>
+                    <td>&gt; %80</td>
+                    <td><span class="badge tag-l2">L2</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>38</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Capacity
+                                Agility</span>
+                            <span class="metric-desc">Ekibin değişimi
+                                absorbe etme yeteneği vs. katı
+                                kapasite.</span>
+                        </div>
+                    </td>
+                    <td>Jira</td>
+                    <td>%85-115</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>39</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Scope Creep</span>
+                            <span class="metric-desc">Sprint başladıktan
+                                sonra eklenen plansız işlerin
+                                oranı.</span>
+                        </div>
+                    </td>
+                    <td>Jira</td>
+                    <td>&lt; %10</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>40</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Unplanned Work</span>
+                            <span class="metric-desc">Acil hatalar / yangın
+                                söndürme için harcanan zaman
+                                yüzdesi.</span>
+                        </div>
+                    </td>
+                    <td>Jira</td>
+                    <td>&lt; %15</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>41</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Investment
+                                Profile</span>
+                            <span class="metric-desc">Kaynak dağılımı:
+                                İnovasyon vs. İşletme vs. Teknik
+                                Borç.</span>
+                        </div>
+                    </td>
+                    <td>Jira Etiketleri</td>
+                    <td>%60 Yeni</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Organizasyon</span></td>
+                </tr>
+                
+                <tr>
+                    <td>42</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Orphan Items</span>
+                            <span class="metric-desc">Stratejik bir
+                                Epic/Story'e bağlı olmayan görevlerin
+                                oranı.</span>
+                        </div>
+                    </td>
+                    <td>Jira</td>
+                    <td>&lt; %5</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>43</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Lead Time to
+                                Start</span>
+                            <span class="metric-desc">Backlog'a eklenmeden
+                                "In Progress" durumuna geçiş
+                                süresi.</span>
+                        </div>
+                    </td>
+                    <td>Jira</td>
+                    <td>Minimal</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>44</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Feature
+                                Adoption</span>
+                            <span class="metric-desc">Yayınlanan
+                                özelliklerin kullanıcı tarafından
+                                benimsenme oranı. Nihai "outcome"
+                                metriği.</span>
+                        </div>
+                    </td>
+                    <td>Analitik</td>
+                    <td>Yüksek</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Organizasyon</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ==================== CATEGORY 6 ==================== -->
+<div class="category-card cat-6">
+    <div class="category-header">
+        <div class="category-number">6</div>
+        <div class="category-title">FinOps and Business Value</div>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Metrik</th>
+                    <th>Kaynak</th>
+                    <th>Hedef</th>
+                    <th>Katman</th>
+                    <th>Seviye</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>45</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Cost per
+                                Feature</span>
+                            <span class="metric-desc">Özellik başına toplam
+                                tahsis edilen maliyet.</span>
+                        </div>
+                    </td>
+                    <td>FinOps</td>
+                    <td>İzleme</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Organizasyon</span></td>
+                </tr>
+                <tr>
+                    <td>46</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Revenue per
+                                Engineer</span>
+                            <span class="metric-desc">Gelir / Mühendis
+                                Sayısı. Verimlilik proxy'si.</span>
+                        </div>
+                    </td>
+                    <td>Finans</td>
+                    <td>Yüksek</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Organizasyon</span></td>
+                </tr>
+                <tr>
+                    <td>47</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Capitalization
+                                Rate</span>
+                            <span class="metric-desc">CapEx vergi teşviki
+                                için uygun mühendislik işi
+                                yüzdesi.</span>
+                        </div>
+                    </td>
+                    <td>Jira / Finans</td>
+                    <td>Otomatik</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Organizasyon</span></td>
+                </tr>
+                <tr>
+                    <td>48</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Revenue Impact</span>
+                            <span class="metric-desc">Belirli sürümlere
+                                doğrudan gelir atfı (mümkün
+                                olduğunda).</span>
+                        </div>
+                    </td>
+                    <td>Analitik</td>
+                    <td>Yüksek</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Organizasyon</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ==================== CATEGORY 7 ==================== -->
+<div class="category-card cat-7">
+    <div class="category-header">
+        <div class="category-number">7</div>
+        <div class="category-title">Operational Health (SRE)</div>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Metrik</th>
+                    <th>Kaynak</th>
+                    <th>Hedef</th>
+                    <th>Katman</th>
+                    <th>Seviye</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>49</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">MTTR (Incident)</span>
+                            <span class="metric-desc">Yüksek önem dereceli
+                                olayları Ortalama Çözme Süresi.</span>
+                        </div>
+                    </td>
+                    <td>PagerDuty</td>
+                    <td>&lt; 1 Saat</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>50</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">MTTD (Detect)</span>
+                            <span class="metric-desc">Sorun başlangıcından
+                                alarm tetiklenmesine kadar geçen
+                                süre.</span>
+                        </div>
+                    </td>
+                    <td>Observability</td>
+                    <td>&lt; 5 Dk</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Platform</span></td>
+                </tr>
+                <tr>
+                    <td>51</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">MTTA
+                                (Acknowledge)</span>
+                            <span class="metric-desc">Bir insanın alarmı
+                                onaylaması için geçen süre.</span>
+                        </div>
+                    </td>
+                    <td>PagerDuty</td>
+                    <td>&lt; 15 Dk</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>52</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Availability</span>
+                            <span class="metric-desc">Sistem çalışma süresi
+                                yüzdesi (planlı bakımlar hariç).</span>
+                        </div>
+                    </td>
+                    <td>Pingdom</td>
+                    <td>&gt; %99.9</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Platform</span></td>
+                </tr>
+                <tr>
+                    <td>53</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Error Rate
+                                (5xx)</span>
+                            <span class="metric-desc">5xx hata döndüren
+                                isteklerin yüzdesi.</span>
+                        </div>
+                    </td>
+                    <td>APM</td>
+                    <td>&lt; %0.1</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Platform</span></td>
+                </tr>
+                <tr>
+                    <td>54</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Latency (P95)</span>
+                            <span class="metric-desc">95. yüzdelik dilim
+                                yanıt süresi.</span>
+                        </div>
+                    </td>
+                    <td>APM</td>
+                    <td>&lt; 200ms</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Platform</span></td>
+                </tr>
+                <tr>
+                    <td>55</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Vulnerability
+                                Resolution</span>
+                            <span class="metric-desc">Kritik güvenlik
+                                açıklarını yamama süresi.</span>
+                        </div>
+                    </td>
+                    <td>Snyk</td>
+                    <td>&lt; 24 Saat</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>56</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Policy
+                                Compliance</span>
+                            <span class="metric-desc">Statik analiz güvenlik
+                                kapılarını geçen kod oranı.</span>
+                        </div>
+                    </td>
+                    <td>SonarQube</td>
+                    <td>%100</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Platform</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ==================== CATEGORY 8 ==================== -->
+<div class="category-card cat-8">
+    <div class="category-header">
+        <div class="category-number">8</div>
+        <div class="category-title">Organizational Hygiene</div>
+    </div>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Metrik</th>
+                    <th>Kaynak</th>
+                    <th>Hedef</th>
+                    <th>Katman</th>
+                    <th>Seviye</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>57</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Reviewer Load</span>
+                            <span class="metric-desc">Kişi başı PR inceleme
+                                sayısı. Darboğaz ve reviewer
+                                tükenmişliğini önler.</span>
+                        </div>
+                    </td>
+                    <td>Git</td>
+                    <td>Dengeli</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+                <tr>
+                    <td>58</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Bus Factor</span>
+                            <span class="metric-desc">Bir projenin durması
+                                için ayrılması gereken minimum kişi
+                                sayısı.</span>
+                        </div>
+                    </td>
+                    <td>Git</td>
+                    <td>&gt; 2</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>59</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Doc Freshness</span>
+                            <span class="metric-desc">Dokümantasyonun
+                                ortalama yaşı.</span>
+                        </div>
+                    </td>
+                    <td>Wiki</td>
+                    <td>&lt; 90 Gün</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>60</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Dependency Wait</span>
+                            <span class="metric-desc">Diğer ekipler
+                                tarafından engellenerek geçirilen
+                                süre.</span>
+                        </div>
+                    </td>
+                    <td>Jira Bağları</td>
+                    <td>Düşük</td>
+                    <td><span class="badge tag-l3">L3</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+                <tr>
+                    <td>61</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Hiring Load</span>
+                            <span class="metric-desc">Mülakat için harcanan
+                                mühendislik saati vs. kodlama
+                                saati.</span>
+                        </div>
+                    </td>
+                    <td>Takvim</td>
+                    <td>İzleme</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Organizasyon</span></td>
+                </tr>
+                <tr>
+                    <td>62</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Attrition Risk</span>
+                            <span class="metric-desc">Ayrılma için erken
+                                uyarı işaretleri (azalan aktivite, düşen
+                                katılım).</span>
+                        </div>
+                    </td>
+                    <td>İK</td>
+                    <td>Düşük</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+                <tr>
+                    <td>63</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Maker Ratio</span>
+                            <span class="metric-desc">Geliştirme Süresi
+                                (Kodlama) vs. Toplantı Süresi (İdari
+                                işler). Mühendislerin asıl işlerini
+                                yapabilme oranı.</span>
+                        </div>
+                    </td>
+                    <td>Takvim</td>
+                    <td>&gt; %70</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Bireysel</span></td>
+                </tr>
+                <tr>
+                    <td>64</td>
+                    <td>
+                        <div class="metric-content">
+                            <span class="metric-name">Sprint Goal
+                                Success</span>
+                            <span class="metric-desc">Sprint hedefinin
+                                (sadece görevlerin değil) tamamlanma
+                                oranı.</span>
+                        </div>
+                    </td>
+                    <td>Jira</td>
+                    <td>Yüksek</td>
+                    <td><span class="badge tag-org">ORG</span></td>
+                    <td><span class="badge tag-level">Ekip</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ==================== LEGEND ==================== -->
+<div class="legend-section">
+    <h3 class="legend-title">Referans Bilgileri</h3>
+    <div class="legend-grid">
+        <div class="legend-group">
+            <h4>Performans Katmanı</h4>
+            <div class="legend-items">
+                <span class="badge tag-l1">L1 — North Star</span>
+                <span class="badge tag-l2">L2 — Gelişim</span>
+                <span class="badge tag-l3">L3 — Teşhis</span>
+                <span class="badge tag-org">ORG — Org Envanter</span>
+                <span class="badge tag-beta">BETA — Beta</span>
+            </div>
+        </div>
+        <div class="legend-group">
+            <h4>Ölçüm Seviyesi</h4>
+            <div class="legend-items">
+                <span class="badge tag-level">Bireysel</span>
+                <span class="badge tag-level">Ekip</span>
+                <span class="badge tag-level">Platform</span>
+                <span class="badge tag-level">Organizasyon</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>ÖDEAL TEKNOLOJİ · Confidential / Internal Use Only · Version 2.0</p>
+    <p style="margin-top: 6px;">L1/L2 katman eşleştirmesi ve bireysel sağlıklı aralıklar için → <a href="#">engineer.md
+            v2.0</a></p>
+</footer>
+
+</div>
+
+</body>
+
+</html>

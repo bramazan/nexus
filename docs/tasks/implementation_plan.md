@@ -65,8 +65,22 @@ Goal: Process raw data into standard tables.
 - [ ] **12. Sync Engine Implementation**
     - [ ] Create `SyncController` or `WorkerService`.
     - [x] **GitLab Sync Handler:** Fetch -> Map Users -> Save to `PullRequests`, `Commits`.
-    - [ ] **Jira Sync Handler:** Fetch -> Map Users -> Save to `Issues`, `Sprints`.
     - [x] **Instana Sync Handler:** Fetch -> Save to `Incidents`, `Deployments`.
+    - [ ] **Jira Sync Handler:** (DEFERRED) Fetch -> Map Users -> Save to `Issues`, `Sprints`.
+
+## Phase 5.5: GitLab-Only Metrics & Reporting (PRIORITY)
+Goal: Generate value immediately using available Source Control data.
+
+- [ ] **12a. Metric Calculation Engine**
+    - [ ] **Cycle Time Calculator:** Compute `MergedAt - CreatedAt` for PRs and update `CycleTimeMinutes`.
+    - [ ] **Pickup Time Calculator:** Compute `FirstReviewAt - CreatedAt`.
+    - [ ] **Review Size Analysis:** Categorize PRs by size (Small, Medium, Large) to correlate with speed.
+    - [ ] **Job:** Create `CalculateGitLabMetricsCommand` to run nightly or after sync.
+
+- [ ] **12b. Reporting Endpoints (GitLab Focused)**
+    - [ ] `GET /api/reports/cycle-time`: Average Cycle Time per Team/Repo.
+    - [ ] `GET /api/reports/throughput`: Merged PR counts (Daily/Weekly).
+    - [ ] `GET /api/reports/pr-size`: Distribution of PR sizes.
 
 ## Phase 6: Visualization
 Goal: Show the insights.
